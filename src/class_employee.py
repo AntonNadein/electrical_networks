@@ -2,6 +2,8 @@ from src.base_employee import BaseEmployee
 
 
 class Employee(BaseEmployee):
+    """Базовый класс работника"""
+
     total_employee = 0
     job_coefficient = 1
 
@@ -11,7 +13,7 @@ class Employee(BaseEmployee):
     age: int
     base_salary: int
 
-    def __init__(self, name: str, surname: str, patronymic: str, age: int, base_salary: int = None):
+    def __init__(self, name: str, surname: str, patronymic: str, age: int, base_salary: int = None) -> None:
         self.name = name
         self.surname = surname
         self.patronymic = patronymic
@@ -24,22 +26,18 @@ class Employee(BaseEmployee):
         """Добавление нового работника из словаря"""
         return cls(**dicts)
 
-    @classmethod
-    def new_job_coefficient(cls, arg):
-        """Изменение зарплатного коэффициента"""
-        cls.job_coefficient = arg
-
     def salary(self):
         """Рассчет зарплаты работника (зарплата * зарплатный коэффициент)"""
         return self.base_salary * self.job_coefficient
 
     def __repr__(self):
         """Вывод информации для разработчика"""
-        return f"{self.__class__.__name__}({self.name}, {self.surname}, {self.patronymic}, {self.age}, {self.base_salary})"
+        return (f"{self.__class__.__name__}({self.name}, {self.surname}, {self.patronymic},"
+                f" {self.age}, {self.base_salary})")
 
     def __str__(self):
         """Вывод информации для пользователя"""
-        return f"{self.surname} {self.name} {self.patronymic}\nВозраст:{self.age}\nЗарплата: {self.salary()}руб."
+        return f"{self.surname} {self.name} {self.patronymic} Возраст:{self.age} Зарплата: {self.salary()}руб."
 
 
 # if __name__=="__main__":
@@ -51,7 +49,6 @@ class Employee(BaseEmployee):
 #     print(Employee.total_employee)
 #
 #     dict_3 = {'name': "Ivan", 'surname': "Sidorov", 'patronymic': "Petrovich", 'age': 23, 'base_salary': 25000}
-#     Employee.new_job_coefficient(1.2)
 #     emp_3 = Employee.add_employee(dict_3)
 #     print(repr(emp_3))
 #     print(str(emp_3))
