@@ -1,6 +1,6 @@
 import pytest
 
-from src.class_employee import Employee
+from src.class_employee import Driver, Employee, Specialist, Supervisor
 from src.class_team import Team
 from src.class_team_electricians import MasterElectric
 from src.equipment import ElectricalEquipment, MeteringDevice, OilFilledEquipment, Switch, Transformer
@@ -18,6 +18,11 @@ def test_employee_data_2():
 
 
 @pytest.fixture
+def test_srt_supervisor(test_employee_data_2):
+    return Supervisor("Petr", "Jdanov", "Petrovich", 42, 50000, [test_employee_data_2])
+
+
+@pytest.fixture
 def test_team_master():
     return MasterElectric("Ivan", "Ivanov", "Ivanovich", 40, 25000, 5)
 
@@ -29,6 +34,7 @@ def test_team_data(test_employee_data_1, test_employee_data_2, test_team_master)
 
 @pytest.fixture
 def test_passenger_transport():
+    PassengerTransport.passenger_transport = 0
     transport_1 = PassengerTransport("УАЗ", "Пассажироперевозки", 87, 16, 4)
     transport_2 = PassengerTransport("Газ66", "Бригадный", 95, 28, 6)
     transport_3 = PassengerTransport("Газ66", "Бригадный", 95, 25, 5)
@@ -48,11 +54,13 @@ def test_dict_passenger_transport():
 
 @pytest.fixture
 def test_freight_transport():
+    FreightTransport.freight_transport = 0
     return FreightTransport("Газ", "Грузоперевозки", 87, 16, 4, 4)
 
 
 @pytest.fixture
 def test_special_transport():
+    SpecialTransport.special_transport = 0
     return SpecialTransport("Газ", "Автовышка", 87, 16, 4, 1)
 
 
@@ -79,3 +87,13 @@ def test_oil_switch():
 @pytest.fixture
 def test_metering_device():
     return MeteringDevice("Прибор учета", "подсчет киловатт", 0.4, 3)
+
+
+@pytest.fixture
+def test_specialist(test_transformer):
+    return Specialist("Petr", "Vasin", "Petrovich", 42, 50000, [test_transformer])
+
+
+@pytest.fixture
+def test_driver(test_freight_transport):
+    return Driver("Vasily", "Vasin", "Petrovich", 42, 45000, [test_freight_transport])
