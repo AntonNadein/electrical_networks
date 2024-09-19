@@ -1,7 +1,7 @@
 import pytest
 
 from src.class_team import Team
-from src.class_team_electricians import Electrician
+from src.team_electricians import Electrician
 
 
 def test_team(test_team_data):
