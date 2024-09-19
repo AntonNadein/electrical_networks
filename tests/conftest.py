@@ -2,8 +2,8 @@ import pytest
 
 from src.class_employee import Driver, Employee, Specialist, Supervisor
 from src.class_team import Team
-from src.class_team_electricians import MasterElectric
 from src.equipment import ElectricalEquipment, MeteringDevice, OilFilledEquipment, Switch, Transformer
+from src.team_electricians import MasterElectric
 from src.transport import FreightTransport, PassengerTransport, SpecialTransport
 
 
@@ -23,8 +23,8 @@ def test_srt_supervisor(test_employee_data_2):
 
 
 @pytest.fixture
-def test_team_master():
-    return MasterElectric("Ivan", "Ivanov", "Ivanovich", 40, 25000, 5)
+def test_team_master(test_employee_data_1):
+    return MasterElectric("Ivan", "Ivanov", "Ivanovich", 40, 25000, [test_employee_data_1])
 
 
 @pytest.fixture
