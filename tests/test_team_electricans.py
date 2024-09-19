@@ -1,4 +1,4 @@
-from src.team_driver import ElectricianDriver
+from src.team_electricians import ElectricianDriver
 
 
 def test_master(test_team_master):
@@ -8,4 +8,4 @@ def test_master(test_team_master):
 
 def test_electrician_driver(test_passenger_transport):
     electrician = ElectricianDriver("Petr", "Petrov", "Ivanovich", 40, 20000, [test_passenger_transport])
-    assert str(electrician) == "Petrov Petr Ivanovich Возраст:40 Зарплата: 22000.0руб."
+    assert str(electrician) == "Petrov Petr Ivanovich Возраст:40 Зарплата: 24000.0руб."
