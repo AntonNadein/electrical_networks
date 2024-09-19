@@ -3,6 +3,7 @@ import pytest
 from src.class_employee import Employee
 from src.class_team import Team
 from src.class_team_electricians import MasterElectric
+from src.equipment import ElectricalEquipment, MeteringDevice, OilFilledEquipment, Switch, Transformer
 from src.transport import FreightTransport, PassengerTransport, SpecialTransport
 
 
@@ -53,3 +54,28 @@ def test_freight_transport():
 @pytest.fixture
 def test_special_transport():
     return SpecialTransport("Газ", "Автовышка", 87, 16, 4, 1)
+
+
+@pytest.fixture
+def test_electrical_equipment():
+    return ElectricalEquipment("электропибор", "электропотребления", 0.23)
+
+
+@pytest.fixture
+def test_oil_filled_equipment():
+    return OilFilledEquipment("маслонаполненное оборудование", "гашение дуги в масле", 220, 24)
+
+
+@pytest.fixture
+def test_transformer():
+    return Transformer("ТМ-400", "трасформации", 10, 0.7, 0.4, 400)
+
+
+@pytest.fixture
+def test_oil_switch():
+    return Switch("МВ-110", "отключение сети", 110, 4, 124000, "дистанционное")
+
+
+@pytest.fixture
+def test_metering_device():
+    return MeteringDevice("Прибор учета", "подсчет киловатт", 0.4, 3)
