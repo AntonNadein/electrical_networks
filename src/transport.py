@@ -109,7 +109,7 @@ class FreightTransport(Transport):
             raise ValueError("Порожняя масса не может быть отрицательной")
         self.empty_weight = empty_weight
         if cargo_weight < 0:
-            raise ValueError("Порожняя масса не может быть отрицательной")
+            raise ValueError("Масса груза не может быть отрицательной")
         self.cargo_weight = cargo_weight
         self.max_mass = self.empty_weight + self.cargo_weight
         self.remaining_weight = 0  # отсаток веса до заполнения
