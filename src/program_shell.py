@@ -3,7 +3,9 @@ from PyQt6.QtCore import Qt
 
 
 class SoftwareShell(object):
+
     def setupUi(self, MainWindow):
+        self.original_values = {}  # Словарь для хранения исходных значений виджетов
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(696, 681)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
@@ -119,6 +121,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_manager_ln.setFont(font)
         self.text_manager_ln.setObjectName("text_manager_ln")
+        self.original_values['clear_plain_text'] = self.text_manager_ln.toPlainText()
         self.horizontalLayout_86.addWidget(self.text_manager_ln)
         self.label_146 = QtWidgets.QLabel(parent=self.widget)
         font = QtGui.QFont()
@@ -217,30 +220,35 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.checkBox_driver_a_3.setFont(font)
         self.checkBox_driver_a_3.setObjectName("checkBox_driver_a_3")
+        self.original_values['checkBox_driver_a_3'] = self.checkBox_driver_a_3.isChecked()
         self.horizontalLayout_91.addWidget(self.checkBox_driver_a_3)
         self.checkBox_driver_b_3 = QtWidgets.QCheckBox(parent=self.widget)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_b_3.setFont(font)
         self.checkBox_driver_b_3.setObjectName("checkBox_driver_b_3")
+        self.original_values['checkBox_driver_b_3'] = self.checkBox_driver_b_3.isChecked()
         self.horizontalLayout_91.addWidget(self.checkBox_driver_b_3)
         self.checkBox_driver_c_3 = QtWidgets.QCheckBox(parent=self.widget)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_c_3.setFont(font)
         self.checkBox_driver_c_3.setObjectName("checkBox_driver_c_3")
+        self.original_values['checkBox_driver_c_3'] = self.checkBox_driver_c_3.isChecked()
         self.horizontalLayout_91.addWidget(self.checkBox_driver_c_3)
         self.checkBox_driver_d_3 = QtWidgets.QCheckBox(parent=self.widget)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_d_3.setFont(font)
         self.checkBox_driver_d_3.setObjectName("checkBox_driver_d_3")
+        self.original_values['checkBox_driver_d_3'] = self.checkBox_driver_d_3.isChecked()
         self.horizontalLayout_91.addWidget(self.checkBox_driver_d_3)
         self.checkBox_driver_e_3 = QtWidgets.QCheckBox(parent=self.widget)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_e_3.setFont(font)
         self.checkBox_driver_e_3.setObjectName("checkBox_driver_e_3")
+        self.original_values['checkBox_driver_e_3'] = self.checkBox_driver_e_3.isChecked()
         self.horizontalLayout_91.addWidget(self.checkBox_driver_e_3)
         self.verticalLayout_52.addLayout(self.horizontalLayout_91)
         self.verticalLayout_51.addLayout(self.verticalLayout_52)
@@ -263,18 +271,23 @@ class SoftwareShell(object):
         self.verticalLayout_55.setObjectName("verticalLayout_55")
         self.comboBox_manager_1 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_1.setObjectName("comboBox_manager_1")
+
         self.verticalLayout_55.addWidget(self.comboBox_manager_1)
         self.comboBox_manager_2 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_2.setObjectName("comboBox_manager_2")
+
         self.verticalLayout_55.addWidget(self.comboBox_manager_2)
         self.comboBox_manager_3 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_3.setObjectName("comboBox_manager_3")
+
         self.verticalLayout_55.addWidget(self.comboBox_manager_3)
         self.comboBox_manager_4 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_4.setObjectName("comboBox_manager_4")
+
         self.verticalLayout_55.addWidget(self.comboBox_manager_4)
         self.comboBox_manager_5 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_5.setObjectName("comboBox_manager_5")
+
         self.verticalLayout_55.addWidget(self.comboBox_manager_5)
         self.horizontalLayout_92.addLayout(self.verticalLayout_55)
         spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -296,18 +309,23 @@ class SoftwareShell(object):
         self.verticalLayout_59.setObjectName("verticalLayout_59")
         self.comboBox_manager_6 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_6.setObjectName("comboBox_manager_6")
+
         self.verticalLayout_59.addWidget(self.comboBox_manager_6)
         self.comboBox_manager_7 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_7.setObjectName("comboBox_manager_7")
+
         self.verticalLayout_59.addWidget(self.comboBox_manager_7)
         self.comboBox_manager_8 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_8.setObjectName("comboBox_manager_8")
+
         self.verticalLayout_59.addWidget(self.comboBox_manager_8)
         self.comboBox_manager_9 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_9.setObjectName("comboBox_manager_9")
+
         self.verticalLayout_59.addWidget(self.comboBox_manager_9)
         self.comboBox_manager_10 = QtWidgets.QComboBox(parent=self.widget)
         self.comboBox_manager_10.setObjectName("comboBox_manager_10")
+
         self.verticalLayout_59.addWidget(self.comboBox_manager_10)
         self.horizontalLayout_94.addLayout(self.verticalLayout_59)
         spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -350,6 +368,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_engineer_ln.setFont(font)
         self.text_engineer_ln.setObjectName("text_engineer_ln")
+
         self.horizontalLayout_95.addWidget(self.text_engineer_ln)
         self.label_159 = QtWidgets.QLabel(parent=self.layoutWidget_19)
         font = QtGui.QFont()
@@ -362,6 +381,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_engineer_fn.setFont(font)
         self.text_engineer_fn.setObjectName("text_engineer_fn")
+
         self.horizontalLayout_95.addWidget(self.text_engineer_fn)
         self.verticalLayout_63.addLayout(self.horizontalLayout_95)
         self.horizontalLayout_96 = QtWidgets.QHBoxLayout()
@@ -377,6 +397,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_engineer_pn.setFont(font)
         self.text_engineer_pn.setObjectName("text_engineer_pn")
+
         self.horizontalLayout_96.addWidget(self.text_engineer_pn)
         spacerItem7 = QtWidgets.QSpacerItem(280, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_96.addItem(spacerItem7)
@@ -398,6 +419,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_engineer_age.setFont(font)
         self.text_engineer_age.setObjectName("text_engineer_age")
+
         self.horizontalLayout_97.addWidget(self.text_engineer_age)
         spacerItem8 = QtWidgets.QSpacerItem(500, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_97.addItem(spacerItem8)
@@ -414,12 +436,13 @@ class SoftwareShell(object):
         self.label_164.setFont(font)
         self.label_164.setObjectName("label_164")
         self.horizontalLayout_98.addWidget(self.label_164)
-        self.text_engineer__salary = QtWidgets.QPlainTextEdit(parent=self.layoutWidget_19)
+        self.text_engineer_salary = QtWidgets.QPlainTextEdit(parent=self.layoutWidget_19)
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.text_engineer__salary.setFont(font)
-        self.text_engineer__salary.setObjectName("text_engineer__salary")
-        self.horizontalLayout_98.addWidget(self.text_engineer__salary)
+        self.text_engineer_salary.setFont(font)
+        self.text_engineer_salary.setObjectName("text_engineer_salary")
+
+        self.horizontalLayout_98.addWidget(self.text_engineer_salary)
         spacerItem9 = QtWidgets.QSpacerItem(240, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_98.addItem(spacerItem9)
         self.label_165 = QtWidgets.QLabel(parent=self.layoutWidget_19)
@@ -448,30 +471,35 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.checkBox_driver_a_4.setFont(font)
         self.checkBox_driver_a_4.setObjectName("checkBox_driver_a_4")
+        self.original_values['checkBox_driver_a_4'] = self.checkBox_driver_a_4.isChecked()
         self.horizontalLayout_100.addWidget(self.checkBox_driver_a_4)
         self.checkBox_driver_b_4 = QtWidgets.QCheckBox(parent=self.layoutWidget_19)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_b_4.setFont(font)
         self.checkBox_driver_b_4.setObjectName("checkBox_driver_b_4")
+        self.original_values['checkBox_driver_b_4'] = self.checkBox_driver_b_4.isChecked()
         self.horizontalLayout_100.addWidget(self.checkBox_driver_b_4)
         self.checkBox_driver_c_4 = QtWidgets.QCheckBox(parent=self.layoutWidget_19)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_c_4.setFont(font)
         self.checkBox_driver_c_4.setObjectName("checkBox_driver_c_4")
+        self.original_values['checkBox_driver_c_4'] = self.checkBox_driver_c_4.isChecked()
         self.horizontalLayout_100.addWidget(self.checkBox_driver_c_4)
         self.checkBox_driver_d_4 = QtWidgets.QCheckBox(parent=self.layoutWidget_19)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_d_4.setFont(font)
         self.checkBox_driver_d_4.setObjectName("checkBox_driver_d_4")
+        self.original_values['checkBox_driver_d_4'] = self.checkBox_driver_d_4.isChecked()
         self.horizontalLayout_100.addWidget(self.checkBox_driver_d_4)
         self.checkBox_driver_e_4 = QtWidgets.QCheckBox(parent=self.layoutWidget_19)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_e_4.setFont(font)
         self.checkBox_driver_e_4.setObjectName("checkBox_driver_e_4")
+        self.original_values['checkBox_driver_e_4'] = self.checkBox_driver_e_4.isChecked()
         self.horizontalLayout_100.addWidget(self.checkBox_driver_e_4)
         self.verticalLayout_65.addLayout(self.horizontalLayout_100)
         self.verticalLayout_64.addLayout(self.verticalLayout_65)
@@ -494,18 +522,23 @@ class SoftwareShell(object):
         self.verticalLayout_67.setObjectName("verticalLayout_67")
         self.comboBox_engineer_1 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_1.setObjectName("comboBox_engineer_1")
+
         self.verticalLayout_67.addWidget(self.comboBox_engineer_1)
         self.comboBox_engineer_2 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_2.setObjectName("comboBox_engineer_2")
+
         self.verticalLayout_67.addWidget(self.comboBox_engineer_2)
         self.comboBox_engineer_3 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_3.setObjectName("comboBox_engineer_3")
+
         self.verticalLayout_67.addWidget(self.comboBox_engineer_3)
         self.comboBox_engineer_4 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_4.setObjectName("comboBox_engineer_4")
+
         self.verticalLayout_67.addWidget(self.comboBox_engineer_4)
         self.comboBox_engineer_5 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_5.setObjectName("comboBox_engineer_5")
+
         self.verticalLayout_67.addWidget(self.comboBox_engineer_5)
         self.horizontalLayout_101.addLayout(self.verticalLayout_67)
         spacerItem11 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -527,18 +560,23 @@ class SoftwareShell(object):
         self.verticalLayout_69.setObjectName("verticalLayout_69")
         self.comboBox_engineer_6 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_6.setObjectName("comboBox_engineer_6")
+
         self.verticalLayout_69.addWidget(self.comboBox_engineer_6)
         self.comboBox_engineer_7 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_7.setObjectName("comboBox_engineer_7")
+
         self.verticalLayout_69.addWidget(self.comboBox_engineer_7)
         self.comboBox_engineer_8 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_8.setObjectName("comboBox_engineer_8")
+
         self.verticalLayout_69.addWidget(self.comboBox_engineer_8)
         self.comboBox_engineer_9 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_9.setObjectName("comboBox_engineer_9")
+
         self.verticalLayout_69.addWidget(self.comboBox_engineer_9)
         self.comboBox_engineer_10 = QtWidgets.QComboBox(parent=self.layoutWidget_19)
         self.comboBox_engineer_10.setObjectName("comboBox_engineer_10")
+
         self.verticalLayout_69.addWidget(self.comboBox_engineer_10)
         self.horizontalLayout_102.addLayout(self.verticalLayout_69)
         spacerItem12 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -577,6 +615,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_master_ln.setFont(font)
         self.text_master_ln.setObjectName("text_master_ln")
+
         self.horizontalLayout_74.addWidget(self.text_master_ln)
         self.label_124 = QtWidgets.QLabel(parent=self.layoutWidget_14)
         font = QtGui.QFont()
@@ -589,6 +628,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_master_fn.setFont(font)
         self.text_master_fn.setObjectName("text_master_fn")
+
         self.horizontalLayout_74.addWidget(self.text_master_fn)
         self.verticalLayout_37.addLayout(self.horizontalLayout_74)
         self.horizontalLayout_75 = QtWidgets.QHBoxLayout()
@@ -604,6 +644,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_master_pn.setFont(font)
         self.text_master_pn.setObjectName("text_master_pn")
+
         self.horizontalLayout_75.addWidget(self.text_master_pn)
         spacerItem13 = QtWidgets.QSpacerItem(280, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_75.addItem(spacerItem13)
@@ -625,6 +666,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_master_age.setFont(font)
         self.text_master_age.setObjectName("text_master_age")
+
         self.horizontalLayout_76.addWidget(self.text_master_age)
         spacerItem14 = QtWidgets.QSpacerItem(500, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_76.addItem(spacerItem14)
@@ -646,6 +688,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_master_salary.setFont(font)
         self.text_master_salary.setObjectName("text_master_salary")
+
         self.horizontalLayout_77.addWidget(self.text_master_salary)
         spacerItem15 = QtWidgets.QSpacerItem(240, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_77.addItem(spacerItem15)
@@ -669,18 +712,23 @@ class SoftwareShell(object):
         self.verticalLayout_41.setObjectName("verticalLayout_41")
         self.comboBox_master_1 = QtWidgets.QComboBox(parent=self.layoutWidget_14)
         self.comboBox_master_1.setObjectName("comboBox_master_1")
+
         self.verticalLayout_41.addWidget(self.comboBox_master_1)
         self.comboBox_master_2 = QtWidgets.QComboBox(parent=self.layoutWidget_14)
         self.comboBox_master_2.setObjectName("comboBox_master_2")
+
         self.verticalLayout_41.addWidget(self.comboBox_master_2)
         self.comboBox_master_3 = QtWidgets.QComboBox(parent=self.layoutWidget_14)
         self.comboBox_master_3.setObjectName("comboBox_master_3")
+
         self.verticalLayout_41.addWidget(self.comboBox_master_3)
         self.comboBox_master_4 = QtWidgets.QComboBox(parent=self.layoutWidget_14)
         self.comboBox_master_4.setObjectName("comboBox_master_4")
+
         self.verticalLayout_41.addWidget(self.comboBox_master_4)
         self.comboBox_master_5 = QtWidgets.QComboBox(parent=self.layoutWidget_14)
         self.comboBox_master_5.setObjectName("comboBox_master_5")
+
         self.verticalLayout_41.addWidget(self.comboBox_master_5)
         self.horizontalLayout_79.addLayout(self.verticalLayout_41)
         spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -719,6 +767,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_n_utaa_ln.setFont(font)
         self.text_n_utaa_ln.setObjectName("text_n_utaa_ln")
+
         self.horizontalLayout_68.addWidget(self.text_n_utaa_ln)
         self.label_114 = QtWidgets.QLabel(parent=self.layoutWidget_13)
         font = QtGui.QFont()
@@ -731,6 +780,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_n_utaa_fn.setFont(font)
         self.text_n_utaa_fn.setObjectName("text_n_utaa_fn")
+
         self.horizontalLayout_68.addWidget(self.text_n_utaa_fn)
         self.verticalLayout_31.addLayout(self.horizontalLayout_68)
         self.horizontalLayout_69 = QtWidgets.QHBoxLayout()
@@ -746,6 +796,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_n_utaa_pn.setFont(font)
         self.text_n_utaa_pn.setObjectName("text_n_utaa_pn")
+
         self.horizontalLayout_69.addWidget(self.text_n_utaa_pn)
         spacerItem17 = QtWidgets.QSpacerItem(280, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_69.addItem(spacerItem17)
@@ -767,6 +818,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_n_utaa_age.setFont(font)
         self.text_n_utaa_age.setObjectName("text_n_utaa_age")
+
         self.horizontalLayout_70.addWidget(self.text_n_utaa_age)
         spacerItem18 = QtWidgets.QSpacerItem(500, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_70.addItem(spacerItem18)
@@ -788,6 +840,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_n_utaa_salary.setFont(font)
         self.text_n_utaa_salary.setObjectName("text_n_utaa_salary")
+
         self.horizontalLayout_71.addWidget(self.text_n_utaa_salary)
         spacerItem19 = QtWidgets.QSpacerItem(240, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_71.addItem(spacerItem19)
@@ -811,18 +864,23 @@ class SoftwareShell(object):
         self.verticalLayout_33.setObjectName("verticalLayout_33")
         self.comboBox_n_utaa = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa.setObjectName("comboBox_n_utaa")
+
         self.verticalLayout_33.addWidget(self.comboBox_n_utaa)
         self.comboBox_n_utaa_1 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_1.setObjectName("comboBox_n_utaa_1")
+
         self.verticalLayout_33.addWidget(self.comboBox_n_utaa_1)
         self.comboBox_n_utaa_2 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_2.setObjectName("comboBox_n_utaa_2")
+
         self.verticalLayout_33.addWidget(self.comboBox_n_utaa_2)
         self.comboBox_n_utaa_3 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_3.setObjectName("comboBox_n_utaa_3")
+
         self.verticalLayout_33.addWidget(self.comboBox_n_utaa_3)
         self.comboBox_n_utaa_4 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_4.setObjectName("comboBox_n_utaa_4")
+
         self.verticalLayout_33.addWidget(self.comboBox_n_utaa_4)
         self.horizontalLayout_72.addLayout(self.verticalLayout_33)
         spacerItem20 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -843,18 +901,23 @@ class SoftwareShell(object):
         self.verticalLayout_35.setObjectName("verticalLayout_35")
         self.comboBox_n_utaa_5 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_5.setObjectName("comboBox_n_utaa_5")
+
         self.verticalLayout_35.addWidget(self.comboBox_n_utaa_5)
         self.comboBox_n_utaa_6 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_6.setObjectName("comboBox_n_utaa_6")
+
         self.verticalLayout_35.addWidget(self.comboBox_n_utaa_6)
         self.comboBox_n_utaa_7 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_7.setObjectName("comboBox_n_utaa_7")
+
         self.verticalLayout_35.addWidget(self.comboBox_n_utaa_7)
         self.comboBox_n_utaa_8 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_8.setObjectName("comboBox_n_utaa_8")
+
         self.verticalLayout_35.addWidget(self.comboBox_n_utaa_8)
         self.comboBox_n_utaa_9 = QtWidgets.QComboBox(parent=self.layoutWidget_13)
         self.comboBox_n_utaa_9.setObjectName("comboBox_n_utaa_9")
+
         self.verticalLayout_35.addWidget(self.comboBox_n_utaa_9)
         self.horizontalLayout_73.addLayout(self.verticalLayout_35)
         spacerItem21 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -895,6 +958,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_mechanic_ln.setFont(font)
         self.text_mechanic_ln.setObjectName("text_mechanic_ln")
+
         self.horizontalLayout_78.addWidget(self.text_mechanic_ln)
         self.label_134 = QtWidgets.QLabel(parent=self.widget1)
         font = QtGui.QFont()
@@ -907,6 +971,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_mechanic_fn.setFont(font)
         self.text_mechanic_fn.setObjectName("text_mechanic_fn")
+
         self.horizontalLayout_78.addWidget(self.text_mechanic_fn)
         self.verticalLayout_39.addLayout(self.horizontalLayout_78)
         self.horizontalLayout_80 = QtWidgets.QHBoxLayout()
@@ -922,6 +987,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_mechanic_pn.setFont(font)
         self.text_mechanic_pn.setObjectName("text_mechanic_pn")
+
         self.horizontalLayout_80.addWidget(self.text_mechanic_pn)
         spacerItem22 = QtWidgets.QSpacerItem(280, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_80.addItem(spacerItem22)
@@ -943,6 +1009,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_mechanic_age.setFont(font)
         self.text_mechanic_age.setObjectName("text_mechanic_age")
+
         self.horizontalLayout_81.addWidget(self.text_mechanic_age)
         spacerItem23 = QtWidgets.QSpacerItem(500, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_81.addItem(spacerItem23)
@@ -964,6 +1031,7 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.text_mechanic_salary.setFont(font)
         self.text_mechanic_salary.setObjectName("text_mechanic_salary")
+
         self.horizontalLayout_82.addWidget(self.text_mechanic_salary)
         spacerItem24 = QtWidgets.QSpacerItem(240, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_82.addItem(spacerItem24)
@@ -993,30 +1061,35 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.checkBox_driver_a_2.setFont(font)
         self.checkBox_driver_a_2.setObjectName("checkBox_driver_a_2")
+        self.original_values['checkBox_driver_a_2'] = self.checkBox_driver_a_2.isChecked()
         self.horizontalLayout_84.addWidget(self.checkBox_driver_a_2)
         self.checkBox_driver_b_2 = QtWidgets.QCheckBox(parent=self.widget1)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_b_2.setFont(font)
         self.checkBox_driver_b_2.setObjectName("checkBox_driver_b_2")
+        self.original_values['checkBox_driver_b_2'] = self.checkBox_driver_b_2.isChecked()
         self.horizontalLayout_84.addWidget(self.checkBox_driver_b_2)
         self.checkBox_driver_c_2 = QtWidgets.QCheckBox(parent=self.widget1)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_c_2.setFont(font)
         self.checkBox_driver_c_2.setObjectName("checkBox_driver_c_2")
+        self.original_values['checkBox_driver_c_2'] = self.checkBox_driver_c_2.isChecked()
         self.horizontalLayout_84.addWidget(self.checkBox_driver_c_2)
         self.checkBox_driver_d_2 = QtWidgets.QCheckBox(parent=self.widget1)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_d_2.setFont(font)
         self.checkBox_driver_d_2.setObjectName("checkBox_driver_d_2")
+        self.original_values['checkBox_driver_d_2'] = self.checkBox_driver_d_2.isChecked()
         self.horizontalLayout_84.addWidget(self.checkBox_driver_d_2)
         self.checkBox_driver_e_2 = QtWidgets.QCheckBox(parent=self.widget1)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_e_2.setFont(font)
         self.checkBox_driver_e_2.setObjectName("checkBox_driver_e_2")
+        self.original_values['checkBox_driver_e_2'] = self.checkBox_driver_e_2.isChecked()
         self.horizontalLayout_84.addWidget(self.checkBox_driver_e_2)
         self.verticalLayout_43.addLayout(self.horizontalLayout_84)
         self.verticalLayout_42.addLayout(self.verticalLayout_43)
@@ -1487,30 +1560,35 @@ class SoftwareShell(object):
         font.setPointSize(12)
         self.checkBox_driver_a.setFont(font)
         self.checkBox_driver_a.setObjectName("checkBox_driver_a")
+        self.original_values['checkBox_driver_a'] = self.checkBox_driver_a.isChecked()
         self.horizontalLayout_11.addWidget(self.checkBox_driver_a)
         self.checkBox_driver_b = QtWidgets.QCheckBox(parent=self.layoutWidget2)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_b.setFont(font)
         self.checkBox_driver_b.setObjectName("checkBox_driver_b")
+        self.original_values['checkBox_driver_b'] = self.checkBox_driver_b.isChecked()
         self.horizontalLayout_11.addWidget(self.checkBox_driver_b)
         self.checkBox_driver_c = QtWidgets.QCheckBox(parent=self.layoutWidget2)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_c.setFont(font)
         self.checkBox_driver_c.setObjectName("checkBox_driver_c")
+        self.original_values['checkBox_driver_c'] = self.checkBox_driver_c.isChecked()
         self.horizontalLayout_11.addWidget(self.checkBox_driver_c)
         self.checkBox_driver_d = QtWidgets.QCheckBox(parent=self.layoutWidget2)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_d.setFont(font)
         self.checkBox_driver_d.setObjectName("checkBox_driver_d")
+        self.original_values['checkBox_driver_d'] = self.checkBox_driver_d.isChecked()
         self.horizontalLayout_11.addWidget(self.checkBox_driver_d)
         self.checkBox_driver_e = QtWidgets.QCheckBox(parent=self.layoutWidget2)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.checkBox_driver_e.setFont(font)
         self.checkBox_driver_e.setObjectName("checkBox_driver_e")
+        self.original_values['checkBox_driver_e'] = self.checkBox_driver_e.isChecked()
         self.horizontalLayout_11.addWidget(self.checkBox_driver_e)
         self.verticalLayout_5.addLayout(self.horizontalLayout_11)
         self.verticalLayout_7.addLayout(self.verticalLayout_5)
@@ -2719,22 +2797,5 @@ class SoftwareShell(object):
         self.label_57.setText(_translate("MainWindow", "Моточасы"))
         self.label_58.setText(_translate("MainWindow", "Расход топлива под нагрузкой"))
         self.pushButton.setText(_translate("MainWindow", "Создать"))
-        self.pushButton_2.setText(_translate("MainWindow", "Отмена"))
-        self.pushButton_3.setText(_translate("MainWindow", "Очистить"))
-
-class ProgramManagement(SoftwareShell):
-    def __init__(self):
-        super(SoftwareShell).__init__()
-        self.page_number = 0
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = ProgramManagement()
-    ui.setupUi(MainWindow)
-
-    MainWindow.show()
-    sys.exit(app.exec())
+        self.pushButton_2.setText(_translate("MainWindow", "Очистить"))
+        self.pushButton_3.setText(_translate("MainWindow", "Сохранить"))

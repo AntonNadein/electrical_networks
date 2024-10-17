@@ -15,8 +15,11 @@ if __name__ == "__main__":
     ui.click_item_button_next_back()
     ui.check_box_driver()
     ui.check_box_mechanic()
-    ui.check_box_manadger()
-    ui.check_box_engenear()
+    ui.check_box_manager()
+    ui.check_box_engineer()
+    ui.list_combo_box_manager_add()
+    ui.list_combo_box_engineer_add()
+
 
 
     MainWindow.show()

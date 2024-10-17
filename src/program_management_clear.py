@@ -4,10 +4,11 @@ from src.program_management import ProgramManagement
 class ProgramManagementClear(ProgramManagement):
     def clear_data(self):
         if self.page_number == 1:
-            self.clear_manadger()
+            self.clear_manager()
             self.data = {}
         elif self.page_number == 2:
-            self.clear_engenear()
+            self.clear_engineer()
+            self.data = {}
         elif self.page_number == 3:
             self.clear_master()
         elif self.page_number == 4:
@@ -43,20 +44,54 @@ class ProgramManagementClear(ProgramManagement):
 
 
 
-    def clear_manadger(self):
-        """Фунция очистки карточки водителя"""
+    def clear_manager(self):
+        """Фунция очистки карточки начальника"""
+        self.text_manager_ln.setPlainText(self.original_values['clear_plain_text'])
+        self.text_manager_fn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_manager_pn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_manager_age.setPlainText(self.original_values['clear_plain_text'])
+        self.text_manager_salary.setPlainText(self.original_values['clear_plain_text'])
         self.checkBox_driver_a_3.setChecked(self.original_values['checkBox_driver_a'])
         self.checkBox_driver_b_3.setChecked(self.original_values['checkBox_driver_b'])
         self.checkBox_driver_c_3.setChecked(self.original_values['checkBox_driver_c'])
         self.checkBox_driver_d_3.setChecked(self.original_values['checkBox_driver_d'])
         self.checkBox_driver_e_3.setChecked(self.original_values['checkBox_driver_e'])
+        self.list_combo_box_employee = ["", "", "", "", ""]
+        self.list_combo_box_equipment = ["", "", "", "", ""]
+        self.comboBox_manager_1.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_manager_2.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_manager_3.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_manager_4.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_manager_5.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_manager_6.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_manager_7.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_manager_8.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_manager_9.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_manager_10.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
 
-    def clear_engenear(self):
+    def clear_engineer(self):
+        self.text_engineer_ln.setPlainText(self.original_values['clear_plain_text'])
+        self.text_engineer_fn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_engineer_pn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_engineer_age.setPlainText(self.original_values['clear_plain_text'])
+        self.text_engineer_salary.setPlainText(self.original_values['clear_plain_text'])
         self.checkBox_driver_a_4.setChecked(self.original_values['checkBox_driver_a'])
         self.checkBox_driver_b_4.setChecked(self.original_values['checkBox_driver_b'])
         self.checkBox_driver_c_4.setChecked(self.original_values['checkBox_driver_c'])
         self.checkBox_driver_d_4.setChecked(self.original_values['checkBox_driver_d'])
         self.checkBox_driver_e_4.setChecked(self.original_values['checkBox_driver_e'])
+        self.list_combo_box_employee = ["", "", "", "", ""]
+        self.list_combo_box_equipment = ["", "", "", "", ""]
+        self.comboBox_engineer_1.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_engineer_2.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_engineer_3.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_engineer_4.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_engineer_5.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+        self.comboBox_engineer_6.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_engineer_7.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_engineer_8.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_engineer_9.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_engineer_10.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
 
     def clear_master(self):
         pass
