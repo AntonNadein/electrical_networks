@@ -2799,3 +2799,336 @@ class SoftwareShell(object):
         self.pushButton.setText(_translate("MainWindow", "Создать"))
         self.pushButton_2.setText(_translate("MainWindow", "Очистить"))
         self.pushButton_3.setText(_translate("MainWindow", "Сохранить"))
+
+
+# class ProgramManagement(SoftwareShell):
+#     def __init__(self):
+#         super(SoftwareShell).__init__()
+#         self.page_number = 0
+#         self.list_box= []
+#         self.list_combo_box_employee = ["", "", "", "", ""]
+#         self.list_combo_box_transport = ["", "", "", "", ""]
+#         self.list_combo_box_equipment = ["", "", "", "", ""]
+#         self.data = {}
+#         self.original_values_combo_box = {}
+#         self.original_combo_box = {}
+#
+#     def on_item_clicked(self, item, column):
+#         """Реализация одинарного клика по объекту дерева"""
+#         print(f"Одиночный клик: {item.text(column)}")
+#
+#
+#     def on_item_double_clicked(self, item, column):
+#         """Реализация двойного клика по объекту дерева"""
+#         print(f"Двойной клик: {item.text(column)}")
+#         if item.text(0) == "Начальник РЭС":
+#             self.stackedWidget.setCurrentIndex(1)
+#             self.page_number = 1
+#         elif item.text(0) == "Инженер":
+#             self.stackedWidget.setCurrentIndex(2)
+#             self.page_number = 2
+#         elif item.text(0) == "Мастер УЭС":
+#             self.stackedWidget.setCurrentIndex(3)
+#             self.page_number = 3
+#         elif item.text(0) == "Начальник УТЭЭ":
+#             self.stackedWidget.setCurrentIndex(4)
+#             self.page_number = 4
+#         elif item.text(0) == "Механик":
+#             self.stackedWidget.setCurrentIndex(5)
+#             self.page_number = 5
+#         elif item.text(0) == "Начальник ОДГ":
+#             self.stackedWidget.setCurrentIndex(6)
+#             self.page_number = 6
+#         elif item.text(0) == "Электромонтер":
+#             self.stackedWidget.setCurrentIndex(7)
+#             self.page_number = 7
+#         elif item.text(0) == "Водитель":
+#             self.stackedWidget.setCurrentIndex(8)
+#             self.page_number = 8
+#         elif item.text(0) == "Инспектор УТЭЭ":
+#             self.stackedWidget.setCurrentIndex(9)
+#             self.page_number = 9
+#         elif item.text(0) == "Электромонтер УТЭЭ":
+#             self.stackedWidget.setCurrentIndex(10)
+#             self.page_number = 10
+#         elif item.text(0) == "Диспетчер ОДГ":
+#             self.stackedWidget.setCurrentIndex(11)
+#             self.page_number = 11
+#         elif item.text(0) == "Трансформатор":
+#             self.stackedWidget.setCurrentIndex(12)
+#             self.page_number = 12
+#         elif item.text(0) == "Выключатель":
+#             self.stackedWidget.setCurrentIndex(13)
+#             self.page_number = 13
+#         elif item.text(0) == "Измерительное":
+#             self.stackedWidget.setCurrentIndex(14)
+#             self.page_number = 14
+#         elif item.text(0) == "Пассажирский":
+#             self.stackedWidget.setCurrentIndex(15)
+#             self.page_number = 15
+#         elif item.text(0) == "Грузовой":
+#             self.stackedWidget.setCurrentIndex(16)
+#             self.page_number = 16
+#         elif item.text(0) == "Спецтранспорт":
+#             self.stackedWidget.setCurrentIndex(17)
+#             self.page_number = 17
+#         else:
+#             self.stackedWidget.setCurrentIndex(0)
+#
+#     def click_button(self, text):
+#         """Реализация кнопок вперед и назад для перелистывания виджетов"""
+#         if text == "Вперед":
+#             self.clear_data() # очищение данных при движении вперед
+#             self.page_number += 1
+#             if self.page_number > 17:
+#                 self.page_number = 0
+#             self.stackedWidget.setCurrentIndex(self.page_number)
+#         elif text == "Назад":
+#             if self.page_number == 0:
+#                 self.page_number = 18
+#             self.page_number -= 1
+#             self.stackedWidget.setCurrentIndex(self.page_number)
+#
+#
+#     def click_item_tree(self):
+#         """Фунция получения и передачи сигнала нажатия на элементы дерева"""
+#         self.treeWidget.itemClicked.connect(self.on_item_clicked)
+#         self.treeWidget.itemDoubleClicked.connect(self.on_item_double_clicked)
+#
+#
+#     def click_item_button(self):
+#         """Фунция получения и передачи сигнала нажатия на кнопки"""
+#         self.pbn_1.clicked.connect(lambda: (self.click_button(self.pbn_1.text())))
+#         self.pbn_2.clicked.connect(lambda: (self.click_button(self.pbn_2.text())))
+#         self.pushButton.clicked.connect(lambda: (self.save_data_manadger())) # save
+#         self.pushButton_2.clicked.connect(self.clear_data) # clear
+#
+#         # Действие выбора спин бокса (сделать одельной функцией на каждый виджет)
+#         self.spinBox_ptr_1.textChanged.connect((lambda num: setattr(self, 'v_c', num)))
+#         self.doubleSpinBox_ptr_2.textChanged.connect(lambda num: setattr(self, 'v_c1', num))
+#         self.spinBox_ptr_3.textChanged.connect((lambda num: setattr(self, 'v_c2', num)))
+#
+#     def clear_data(self):
+#         if self.page_number == 1:
+#             self.clear_data_manadger()
+#
+#     def clear_data_manadger(self):
+#         """Фунция очистки карточки начальника"""
+#         self.text_manager_ln.setPlainText(self.original_values['clear_plain_text'])
+#         self.checkBox_driver_a_3.setChecked(self.original_values['checkBox_driver_a'])
+#         self.checkBox_driver_b_3.setChecked(self.original_values['checkBox_driver_b'])
+#         self.checkBox_driver_c_3.setChecked(self.original_values['checkBox_driver_c'])
+#         self.checkBox_driver_d_3.setChecked(self.original_values['checkBox_driver_d'])
+#         self.checkBox_driver_e_3.setChecked(self.original_values['checkBox_driver_e'])
+#         self.list_combo_box_employee = ["", "", "", "", ""]
+#         self.list_combo_box_equipment = ["", "", "", "", ""]
+#         self.comboBox_manager_1.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+#         self.comboBox_manager_2.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+#         self.comboBox_manager_3.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+#         self.comboBox_manager_4.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+#         self.comboBox_manager_5.setCurrentText(self.original_combo_box['original_combo_box_employee'])
+#         self.comboBox_manager_6.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_7.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_8.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_9.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_10.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+#
+#
+#     def save_data(self):
+#         """Сохранение данных при нажатии на кнопку 'создать'"""
+#         self.data = {
+#             'name': self.text_transport_name.toPlainText(),
+#             'last_name': self.text_transport_purpose.toPlainText(),
+#             'engine_power': self.v_c,
+#             'fuel_consumption': self.v_c1,
+#             'passenger_capacity': self.v_c2
+#         }
+#         print(self.data)  # Здесь можно добавить сохранение данных в файл или БД
+#
+#     def list_combo_box_manager_add(self): # вставка items из файла или БД, нулевой индекс пустой
+#         self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
+#         self.original_values_combo_box['combo_box_manager_equipment'] = ["", "One", "Two", "Three"]
+#
+#         self.comboBox_manager_1.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+#         self.comboBox_manager_2.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+#         self.comboBox_manager_3.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+#         self.comboBox_manager_4.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+#         self.comboBox_manager_5.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+#         self.comboBox_manager_6.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_7.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_8.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_9.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+#         self.comboBox_manager_10.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+#
+#         self.original_combo_box['original_combo_box_employee'] = self.comboBox_manager_1.currentText()
+#         self.original_combo_box['combo_box_manager_equipment'] = self.comboBox_manager_6.currentText()
+#
+#         self.comboBox_manager_1.currentTextChanged.connect(self.text_changed1)
+#         self.comboBox_manager_2.currentTextChanged.connect(self.text_changed2)
+#         self.comboBox_manager_3.currentTextChanged.connect(self.text_changed3)
+#         self.comboBox_manager_4.currentTextChanged.connect(self.text_changed4)
+#         self.comboBox_manager_5.currentTextChanged.connect(self.text_changed5)
+#         self.comboBox_manager_6.currentTextChanged.connect(self.text_changed6)
+#         self.comboBox_manager_7.currentTextChanged.connect(self.text_changed7)
+#         self.comboBox_manager_8.currentTextChanged.connect(self.text_changed8)
+#         self.comboBox_manager_9.currentTextChanged.connect(self.text_changed9)
+#         self.comboBox_manager_10.currentTextChanged.connect(self.text_changed10)
+#
+#
+#     def text_changed1(self, s):
+#         print(s)
+#         self.list_combo_box_employee[0] = s
+#         print(self.list_combo_box_employee)
+#
+#     def text_changed2(self, s):
+#         print(s)
+#         self.list_combo_box_employee[1] = s
+#         print(self.list_combo_box_employee)
+#
+#     def text_changed3(self, s):
+#         print(s)
+#         self.list_combo_box_employee[2] = s
+#         print(self.list_combo_box_employee)
+#
+#     def text_changed4(self, s):
+#         print(s)
+#         self.list_combo_box_employee[3] = s
+#         print(self.list_combo_box_employee)
+#
+#     def text_changed5(self, s):
+#         print(s)
+#         self.list_combo_box_employee[4] = s
+#         print(self.list_combo_box_employee)
+#
+#     def text_changed6(self, s):
+#         print(s)
+#         self.list_combo_box_equipment[0] = s
+#         print(self.list_combo_box_equipment)
+#
+#     def text_changed7(self, s):
+#         print(s)
+#         self.list_combo_box_equipment[1] = s
+#         print(self.list_combo_box_equipment)
+#
+#     def text_changed8(self, s):
+#         print(s)
+#         self.list_combo_box_equipment[2] = s
+#         print(self.list_combo_box_equipment)
+#
+#     def text_changed9(self, s):
+#         print(s)
+#         self.list_combo_box_equipment[3] = s
+#         print(self.list_combo_box_equipment)
+#
+#     def text_changed10(self, s):
+#         print(s)
+#         self.list_combo_box_equipment[4] = s
+#         print(self.list_combo_box_equipment)
+#
+#
+#     def save_data_manadger(self):
+#         """Сохранение данных при нажатии на кнопку 'создать'"""
+#         print(self.list_combo_box_equipment)
+#         while "" in self.list_combo_box_employee:
+#             index_none = self.list_combo_box_employee.index("")
+#             self.list_combo_box_employee.pop(index_none)
+#         while "" in self.list_combo_box_equipment:
+#             index_none = self.list_combo_box_equipment.index("")
+#             self.list_combo_box_equipment.pop(index_none)
+#         self.data = {
+#             'name': self.text_manager_ln.toPlainText(),
+#             'surname': self.text_manager_fn.toPlainText(),
+#             'patronymic': self.text_manager_pn.toPlainText(),
+#             'age': self.text_manager_age.toPlainText(),
+#             'base_salary': self.text_manager_salary.toPlainText(),
+#             'category_driver_license': self.list_box,
+#             'subordinates': self.list_combo_box_employee, #подчиненные
+#             'equipment_list': self.list_combo_box_equipment #оборудование
+#         }
+#         print(self.data)
+#         self.clear_data_manadger()
+#
+#     def check_box_driver(self):
+#         """Фунция получения и передачи сигнала чек.бокса для класса водитель"""
+#         self.checkBox_driver_a.stateChanged.connect(self.show_state_a)
+#         self.checkBox_driver_b.stateChanged.connect(self.show_state_b)
+#         self.checkBox_driver_c.stateChanged.connect(self.show_state_c)
+#         self.checkBox_driver_d.stateChanged.connect(self.show_state_d)
+#         self.checkBox_driver_e.stateChanged.connect(self.show_state_e)
+#
+#     def check_box_mechanic(self):
+#         """Фунция получения и передачи сигнала чек.бокса для класса механик"""
+#         self.checkBox_driver_a_3.stateChanged.connect(self.show_state_a)
+#         self.checkBox_driver_b_3.stateChanged.connect(self.show_state_b)
+#         self.checkBox_driver_c_3.stateChanged.connect(self.show_state_c)
+#         self.checkBox_driver_d_3.stateChanged.connect(self.show_state_d)
+#         self.checkBox_driver_e_3.stateChanged.connect(self.show_state_e)
+#
+#     def show_state_a(self, s):
+#         print(s == Qt.CheckState.Checked.value)
+#         if s == Qt.CheckState.Checked.value:
+#             self.list_box.append("A")
+#             print(self.list_box)
+#         else:
+#             b = self.list_box.index("A")
+#             print(b)
+#             self.list_box.pop(b)
+#             print(self.list_box)
+#
+#     def show_state_b(self, s):
+#         if s == Qt.CheckState.Checked.value:
+#             self.list_box.append("B")
+#             print(self.list_box)
+#         else:
+#             b = self.list_box.index("B")
+#             print(b)
+#             self.list_box.pop(b)
+#             print(self.list_box)
+#
+#     def show_state_c(self, s):
+#         if s == Qt.CheckState.Checked.value:
+#             self.list_box.append("C")
+#             print(self.list_box)
+#         else:
+#             b = self.list_box.index("C")
+#             print(b)
+#             self.list_box.pop(b)
+#             print(self.list_box)
+#
+#     def show_state_d(self, s):
+#         if s == Qt.CheckState.Checked.value:
+#             self.list_box.append("D")
+#             print(self.list_box)
+#         else:
+#             b = self.list_box.index("D")
+#             print(b)
+#             self.list_box.pop(b)
+#             print(self.list_box)
+#
+#     def show_state_e(self, s):
+#         if s == Qt.CheckState.Checked.value:
+#             self.list_box.append("E")
+#             print(self.list_box)
+#         else:
+#             b = self.list_box.index("E")
+#             print(b)
+#             self.list_box.pop(b)
+#             print(self.list_box)
+#
+#
+# if __name__ == "__main__":
+#     import sys
+#
+#     app = QtWidgets.QApplication(sys.argv)
+#     MainWindow = QtWidgets.QMainWindow()
+#
+#     ui = ProgramManagement()
+#     ui.setupUi(MainWindow)
+#     ui.click_item_tree()
+#     ui.click_item_button()
+#     ui.check_box_driver()
+#     ui.check_box_mechanic()
+#     ui.list_combo_box_manager_add()
+#
+#     MainWindow.show()
+#     sys.exit(app.exec())

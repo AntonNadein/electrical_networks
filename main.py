@@ -19,8 +19,11 @@ if __name__ == "__main__":
     ui.check_box_engineer()
     ui.list_combo_box_manager_add()
     ui.list_combo_box_engineer_add()
-
-
+    ui.list_combo_box_master_add()
+    ui.list_combo_box_supervisor_control_add()
+    ui.list_combo_box_mechanic_add()
 
     MainWindow.show()
     sys.exit(app.exec())
+
+# продолжить добавление функционала с монтера

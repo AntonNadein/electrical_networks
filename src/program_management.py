@@ -29,7 +29,7 @@ class ProgramManagement(SoftwareShell):
         elif self.page_number == 5:
             self.save_data_mechanic()
         elif self.page_number == 6:
-            self.save_data_supervisor_control()
+            self.save_data_supervisor_dispatcher()
         elif self.page_number == 7:
             self.save_data_electrician()
         elif self.page_number == 8:
@@ -83,8 +83,7 @@ class ProgramManagement(SoftwareShell):
         self.clear_manager()
 
     def save_data_engineer(self):
-        """Сохранение данных начальника при нажатии на кнопку 'создать'"""
-        print(self.list_combo_box_equipment)
+        """Сохранение данных инжкнера при нажатии на кнопку 'создать'"""
         while "" in self.list_combo_box_employee:
             index_none = self.list_combo_box_employee.index("")
             self.list_combo_box_employee.pop(index_none)
@@ -105,16 +104,86 @@ class ProgramManagement(SoftwareShell):
         self.clear_engineer()
 
     def save_data_master(self):
-        pass
+        """Сохранение данных мастера при нажатии на кнопку 'создать'"""
+        while "" in self.list_combo_box_employee:
+            index_none = self.list_combo_box_employee.index("")
+            self.list_combo_box_employee.pop(index_none)
+        while "" in self.list_combo_box_equipment:
+            index_none = self.list_combo_box_equipment.index("")
+            self.list_combo_box_equipment.pop(index_none)
+        self.data = {
+            'name': self.text_master_ln.toPlainText(),
+            'surname': self.text_master_fn.toPlainText(),
+            'patronymic': self.text_master_pn.toPlainText(),
+            'age': self.text_master_age.toPlainText(),
+            'base_salary': self.text_master_salary.toPlainText(),
+            'subordinates': self.list_combo_box_employee  # подчиненные
+        }
+        print(self.data)
+        self.clear_master()
 
     def save_data_supervisor_control(self):
-        pass
+        """Сохранение данных инжкнера при нажатии на кнопку 'создать'"""
+        while "" in self.list_combo_box_employee:
+            index_none = self.list_combo_box_employee.index("")
+            self.list_combo_box_employee.pop(index_none)
+        while "" in self.list_combo_box_equipment:
+            index_none = self.list_combo_box_equipment.index("")
+            self.list_combo_box_equipment.pop(index_none)
+        self.data = {
+            'name': self.text_n_utaa_ln.toPlainText(),
+            'surname': self.text_n_utaa_fn.toPlainText(),
+            'patronymic': self.text_n_utaa_pn.toPlainText(),
+            'age': self.text_n_utaa_age.toPlainText(),
+            'base_salary': self.text_n_utaa_salary.toPlainText(),
+            'subordinates': self.list_combo_box_employee,  # подчиненные
+            'equipment_list': self.list_combo_box_equipment  # оборудование
+        }
+        print(self.data)
+        self.clear_supervisor_control()
 
     def save_data_mechanic(self):
-        pass
+        """Сохранение данных механика при нажатии на кнопку 'создать'"""
+        print(self.list_combo_box_equipment)
+        while "" in self.list_combo_box_employee:
+            index_none = self.list_combo_box_employee.index("")
+            self.list_combo_box_employee.pop(index_none)
+        while "" in self.list_combo_box_transport:
+            index_none = self.list_combo_box_transport.index("")
+            self.list_combo_box_transport.pop(index_none)
+        self.data = {
+            'name': self.text_mechanic_ln.toPlainText(),
+            'surname': self.text_mechanic_fn.toPlainText(),
+            'patronymic': self.text_mechanic_pn.toPlainText(),
+            'age': self.text_mechanic_age.toPlainText(),
+            'base_salary': self.text_mechanic_salary.toPlainText(),
+            'category_driver_license': self.list_box,
+            'subordinates': self.list_combo_box_employee,  # подчиненные
+            'transport_list': self.list_combo_box_transport  # транспорт
+        }
+        print(self.data)
+        self.clear_mechanic()
 
     def save_data_supervisor_dispatcher(self):
-        pass
+        """Сохранение данных начальника одг при нажатии на кнопку 'создать'"""
+        print(self.list_combo_box_equipment)
+        while "" in self.list_combo_box_employee:
+            index_none = self.list_combo_box_employee.index("")
+            self.list_combo_box_employee.pop(index_none)
+        while "" in self.list_combo_box_equipment:
+            index_none = self.list_combo_box_equipment.index("")
+            self.list_combo_box_equipment.pop(index_none)
+        self.data = {
+            'name': self.text_disp_ln_2.toPlainText(),
+            'surname': self.text_disp_fn_2.toPlainText(),
+            'patronymic': self.text_disp_pn_2.toPlainText(),
+            'age': self.text_disp_age_2.toPlainText(),
+            'base_salary': self.text_disp_salary_2.toPlainText(),
+            'subordinates': self.list_combo_box_equipment,  # подчиненные
+            'equipment_list': self.list_combo_box_employee  # оборудование
+        }
+        print(self.data)
+        self.clear_supervisor_dispatcher()
 
     def save_data_electrician(self):
         pass
@@ -244,7 +313,7 @@ class ProgramManagement(SoftwareShell):
             print(self.list_box)
 
     def list_combo_box_manager_add(self): # вставка items из файла или БД
-        """Функция управления и вывода данных комбо бокса"""
+        """Функция управления и вывода данных комбо бокса начальника"""
         self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
         self.original_values_combo_box['combo_box_manager_equipment'] = ["", "One", "Two", "Three"]
 
@@ -274,7 +343,7 @@ class ProgramManagement(SoftwareShell):
         self.comboBox_manager_10.currentTextChanged.connect(self.__text_changed10)
 
     def list_combo_box_engineer_add(self): # вставка items из файла или БД
-        """Функция управления и вывода данных комбо бокса"""
+        """Функция управления и вывода данных комбо бокса инженера"""
         self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
         self.original_values_combo_box['combo_box_manager_equipment'] = ["", "One", "Two", "Three"]
 
@@ -302,6 +371,111 @@ class ProgramManagement(SoftwareShell):
         self.comboBox_engineer_8.currentTextChanged.connect(self.__text_changed8)
         self.comboBox_engineer_9.currentTextChanged.connect(self.__text_changed9)
         self.comboBox_engineer_10.currentTextChanged.connect(self.__text_changed10)
+
+    def list_combo_box_master_add(self): # вставка items из файла или БД
+        """Функция управления и вывода данных комбо бокса мастера"""
+        self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
+
+        self.comboBox_master_1.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_master_2.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_master_3.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_master_4.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_master_5.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+
+        self.original_combo_box['original_combo_box_employee'] = self.comboBox_engineer_1.currentText()
+
+        self.comboBox_master_1.currentTextChanged.connect(self.__text_changed1)
+        self.comboBox_master_2.currentTextChanged.connect(self.__text_changed2)
+        self.comboBox_master_3.currentTextChanged.connect(self.__text_changed3)
+        self.comboBox_master_4.currentTextChanged.connect(self.__text_changed4)
+        self.comboBox_master_5.currentTextChanged.connect(self.__text_changed5)
+
+    def list_combo_box_supervisor_control_add(self): # вставка items из файла или БД
+        """Функция управления и вывода данных комбо бокса начальника утээ"""
+        self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
+        self.original_values_combo_box['combo_box_manager_equipment'] = ["", "One", "Two", "Three"]
+
+        self.comboBox_n_utaa.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_n_utaa_1.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_n_utaa_2.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_n_utaa_3.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_n_utaa_4.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_n_utaa_5.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_n_utaa_6.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_n_utaa_7.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_n_utaa_8.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_n_utaa_9.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+
+
+        self.original_combo_box['original_combo_box_employee'] = self.comboBox_n_utaa_1.currentText()
+        self.original_combo_box['combo_box_manager_equipment'] = self.comboBox_n_utaa_6.currentText()
+
+        self.comboBox_n_utaa.currentTextChanged.connect(self.__text_changed1)
+        self.comboBox_n_utaa_1.currentTextChanged.connect(self.__text_changed2)
+        self.comboBox_n_utaa_2.currentTextChanged.connect(self.__text_changed3)
+        self.comboBox_n_utaa_3.currentTextChanged.connect(self.__text_changed4)
+        self.comboBox_n_utaa_4.currentTextChanged.connect(self.__text_changed5)
+        self.comboBox_n_utaa_5.currentTextChanged.connect(self.__text_changed6)
+        self.comboBox_n_utaa_6.currentTextChanged.connect(self.__text_changed7)
+        self.comboBox_n_utaa_7.currentTextChanged.connect(self.__text_changed8)
+        self.comboBox_n_utaa_8.currentTextChanged.connect(self.__text_changed9)
+        self.comboBox_n_utaa_9.currentTextChanged.connect(self.__text_changed10)
+
+    def list_combo_box_mechanic_add(self): # вставка items из файла или БД
+        """Функция управления и вывода данных комбо бокса механика"""
+        self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
+        self.original_values_combo_box['combo_box_manager_transport'] = ["", "One", "Two", "Three"]
+
+        self.comboBox_mechanic_1.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_mechanic_2.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_mechanic_3.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_mechanic_4.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_mechanic_5.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.combo_driver_tech_4.addItems(self.original_values_combo_box['combo_box_manager_transport'])
+        self.combo_driver_tech_5.addItems(self.original_values_combo_box['combo_box_manager_transport'])
+        self.combo_driver_tech_6.addItems(self.original_values_combo_box['combo_box_manager_transport'])
+
+        self.original_combo_box['original_combo_box_employee'] = self.comboBox_mechanic_1.currentText()
+        self.original_combo_box['combo_box_manager_transport'] = self.combo_driver_tech_4.currentText()
+
+        self.comboBox_mechanic_1.currentTextChanged.connect(self.__text_changed1)
+        self.comboBox_mechanic_2.currentTextChanged.connect(self.__text_changed2)
+        self.comboBox_mechanic_3.currentTextChanged.connect(self.__text_changed3)
+        self.comboBox_mechanic_4.currentTextChanged.connect(self.__text_changed4)
+        self.comboBox_mechanic_5.currentTextChanged.connect(self.__text_changed5)
+        self.combo_driver_tech_4.currentTextChanged.connect(self.__text_changed6)
+        self.combo_driver_tech_5.currentTextChanged.connect(self.__text_changed7)
+        self.combo_driver_tech_6.currentTextChanged.connect(self.__text_changed8)
+
+    def list_combo_box_supervisor_dispatcher_add(self): # вставка items из файла или БД
+        """Функция управления и вывода данных комбо бокса начальника"""
+        self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
+        self.original_values_combo_box['combo_box_manager_equipment'] = ["", "Трансформ", "Выключатель 10", "Выключатель 110"]
+
+        self.comboBox_disp_11.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_12.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_13.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_14.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_15.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_6.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_disp_7.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_disp_8.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_disp_9.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+        self.comboBox_disp_10.addItems(self.original_values_combo_box['combo_box_manager_employee'])
+
+        self.original_combo_box['original_combo_box_employee'] = self.comboBox_disp_6.currentText()
+        self.original_combo_box['combo_box_manager_equipment'] = self.comboBox_disp_11.currentText()
+
+        self.comboBox_disp_11.currentTextChanged.connect(self.__text_changed1)
+        self.comboBox_disp_12.currentTextChanged.connect(self.__text_changed2)
+        self.comboBox_disp_13.currentTextChanged.connect(self.__text_changed3)
+        self.comboBox_disp_14.currentTextChanged.connect(self.__text_changed4)
+        self.comboBox_disp_15.currentTextChanged.connect(self.__text_changed5)
+        self.comboBox_disp_6.currentTextChanged.connect(self.__text_changed6)
+        self.comboBox_disp_7.currentTextChanged.connect(self.__text_changed7)
+        self.comboBox_disp_8.currentTextChanged.connect(self.__text_changed8)
+        self.comboBox_disp_9.currentTextChanged.connect(self.__text_changed9)
+        self.comboBox_disp_10.currentTextChanged.connect(self.__text_changed10)
 
     def __text_changed1(self, s):
         print(s)
