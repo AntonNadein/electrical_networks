@@ -12,6 +12,7 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     ui.click_item_tree()
     ui.click_item_button()
+    ui.click_item_button_transformer()
     ui.click_item_button_next_back()
     ui.check_box_driver()
     ui.check_box_mechanic()
@@ -22,6 +23,10 @@ if __name__ == "__main__":
     ui.list_combo_box_master_add()
     ui.list_combo_box_supervisor_control_add()
     ui.list_combo_box_mechanic_add()
+    ui.list_combo_box_supervisor_dispatcher_add()
+    ui.list_combo_box_driver_add()
+    ui.list_combo_box_inspector_add()
+    ui.list_combo_box_dispatcher_add()
 
     MainWindow.show()
     sys.exit(app.exec())

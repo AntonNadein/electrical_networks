@@ -14,6 +14,7 @@ class ProgramManagementClear(ProgramManagement):
             self.data = {}
         elif self.page_number == 4:
             self.clear_supervisor_control()
+            self.data = {}
         elif self.page_number == 5:
             self.clear_mechanic()
             self.data = {}
@@ -33,7 +34,7 @@ class ProgramManagementClear(ProgramManagement):
             self.clear_electrician_control()
             self.data = {}
         elif self.page_number == 11:
-            self.clear_dispetcher()
+            self.clear_dispatcher()
             self.data = {}
         elif self.page_number == 12:
             self.clear_transformer()
@@ -53,8 +54,6 @@ class ProgramManagementClear(ProgramManagement):
         elif self.page_number == 17:
             self.clear_special_transport()
             self.data = {}
-        # else:
-        #     self.stackedWidget.setCurrentIndex(0)
 
     def clear_manager(self):
         """Фунция очистки карточки начальника"""
@@ -186,31 +185,73 @@ class ProgramManagementClear(ProgramManagement):
 
     def clear_electrician(self):
         """Фунция очистки карточки монтера"""
-        pass
+        self.text_el_monter_ln.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_fn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_pn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_age.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_salary.setPlainText(self.original_values['clear_plain_text'])
 
     def clear_driver(self):
         """Фунция очистки карточки водителя"""
+        self.text_driver_ln.setPlainText(self.original_values['clear_plain_text'])
+        self.text_driver_fn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_driver_pn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_driver_age.setPlainText(self.original_values['clear_plain_text'])
+        self.text_driver_salary.setPlainText(self.original_values['clear_plain_text'])
+        self.list_combo_box_transport = ["", "", "", "", ""]
         self.checkBox_driver_a.setChecked(self.original_values['checkBox_driver_a'])
         self.checkBox_driver_b.setChecked(self.original_values['checkBox_driver_b'])
         self.checkBox_driver_c.setChecked(self.original_values['checkBox_driver_c'])
         self.checkBox_driver_d.setChecked(self.original_values['checkBox_driver_d'])
         self.checkBox_driver_e.setChecked(self.original_values['checkBox_driver_e'])
+        self.combo_driver_tech_1.setCurrentText(self.original_combo_box['combo_box_manager_transport'])
+        self.combo_driver_tech_2.setCurrentText(self.original_combo_box['combo_box_manager_transport'])
+        self.combo_driver_tech_3.setCurrentText(self.original_combo_box['combo_box_manager_transport'])
 
     def clear_inspector(self):
         """Фунция очистки карточки инспектора"""
-        pass
+        self.text_ispector_ln.setPlainText(self.original_values['clear_plain_text'])
+        self.text_ispector_fn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_ispector_pn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_ispector_age.setPlainText(self.original_values['clear_plain_text'])
+        self.text_ispector_salary.setPlainText(self.original_values['clear_plain_text'])
+        self.list_combo_box_equipment = ["", "", "", "", ""]
+        self.comboBox_ispector.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_ispector_1.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_ispector_2.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_ispector_3.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_ispector_4.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
 
     def clear_electrician_control(self):
         """Фунция очистки карточки монтера утээ"""
-        pass
+        self.text_el_monter_ut_ln_3.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_ut_fn_3.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_ut_pn_3.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_ut_age_3.setPlainText(self.original_values['clear_plain_text'])
+        self.text_el_monter_ut_salary_3.setPlainText(self.original_values['clear_plain_text'])
 
-    def clear_dispetcher(self):
+    def clear_dispatcher(self):
         """Фунция очистки карточки диспетчера"""
-        pass
+        self.text_disp_ln.setPlainText(self.original_values['clear_plain_text'])
+        self.text_disp_fn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_disp_pn.setPlainText(self.original_values['clear_plain_text'])
+        self.text_disp_age.setPlainText(self.original_values['clear_plain_text'])
+        self.text_disp_salary.setPlainText(self.original_values['clear_plain_text'])
+        self.list_combo_box_equipment = ["", "", "", "", ""]
+        self.comboBox_disp_1.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_2.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_3.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_4.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
+        self.comboBox_disp_5.setCurrentText(self.original_combo_box['combo_box_manager_equipment'])
 
     def clear_transformer(self):
         """Фунция очистки карточки трансформатора"""
-        pass
+        self.text_trans_name.setPlainText(self.original_values['clear_plain_text'])
+        self.text_trans_assignment.setPlainText(self.original_values['clear_plain_text'])
+        self.text_voltage_transform.setPlainText(self.original_values['clear_plain_text'])
+        self.doubleSpinBox_ot_1.setValue(self.original_values['double_spin_box_6'])
+        self.doubleSpinBox_ot_2.setValue(self.original_values['double_spin_box_0'])
+        self.spinBox_ot_3.setValue(self.original_values['spin_box_0'])
 
     def clear_switch(self):
         """Фунция очистки карточки выключателя"""
