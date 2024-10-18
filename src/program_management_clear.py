@@ -2,6 +2,7 @@ from src.program_management import ProgramManagement
 
 
 class ProgramManagementClear(ProgramManagement):
+    """Класс для очистки данных в програмных вкладках"""
     def clear_data(self):
         if self.page_number == 1:
             self.clear_manager()
@@ -255,20 +256,42 @@ class ProgramManagementClear(ProgramManagement):
 
     def clear_switch(self):
         """Фунция очистки карточки выключателя"""
-        pass
+        self.text_switch_name_2.setPlainText(self.original_values['clear_plain_text'])
+        self.text_switch_assignment.setPlainText(self.original_values['clear_plain_text'])
+        self.text_switch_name_3.setPlainText(self.original_values['clear_plain_text'])
+        self.doubleSpinBox_ov_1.setValue(self.original_values['double_spin_box_6'])
+        self.doubleSpinBox_ov_2.setValue(self.original_values['double_spin_box_0'])
+        self.spinBox_ov_2.setValue(self.original_values['spin_box_0'])
 
     def clear_metering_device(self):
         """Фунция очистки карточки измерительного прибора"""
-        pass
+        self.text_o_name.setPlainText(self.original_values['clear_plain_text'])
+        self.text_assignment.setPlainText(self.original_values['clear_plain_text'])
+        self.doubleSpinBox_oi_1.setValue(self.original_values['double_spin_box_0'])
+        self.spinBox_oi_2.setValue(self.original_values['spin_box_phases'])
 
     def clear_passenger_transport(self):
         """Фунция очистки карточки пассажирского транспорта"""
-        pass
+        self.text_transport_name_2.setPlainText(self.original_values['clear_plain_text'])
+        self.text_transport_purpose_2.setPlainText(self.original_values['clear_plain_text'])
+        self.doubleSpinBox_ptr_2.setValue(self.original_values['double_spin_box_0'])
+        self.spinBox_ptr_1.setValue(self.original_values['spin_box_0'])
+        self.spinBox_ptr_3.setValue(self.original_values['spin_box_0'])
 
     def clear_freight_transport(self):
         """Фунция очистки карточки грузового транспорта"""
-        pass
+        self.text_transport_name.setPlainText(self.original_values['clear_plain_text'])
+        self.text_transport_purpose.setPlainText(self.original_values['clear_plain_text'])
+        self.doubleSpinBox_ptf_2.setValue(self.original_values['double_spin_box_0'])
+        self.doubleSpinBox_ptf_3.setValue(self.original_values['double_spin_box_0'])
+        self.doubleSpinBox_ptf_4.setValue(self.original_values['double_spin_box_0'])
+        self.spinBox_ptf_1.setValue(self.original_values['spin_box_0'])
 
     def clear_special_transport(self):
         """Фунция очистки карточки спецтранспорта"""
-        pass
+        self.text_transport_name_3.setPlainText(self.original_values['clear_plain_text'])
+        self.text_transport_purpose_3.setPlainText(self.original_values['clear_plain_text'])
+        self.doubleSpinBox_pts_2.setValue(self.original_values['double_spin_box_0'])
+        self.doubleSpinBox_pts_3.setValue(self.original_values['double_spin_box_0'])
+        self.doubleSpinBox_pts_4.setValue(self.original_values['double_spin_box_0'])
+        self.spinBox_pts_1.setValue(self.original_values['spin_box_0'])

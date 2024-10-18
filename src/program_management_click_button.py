@@ -2,6 +2,7 @@ from src.program_management_clear import ProgramManagementClear
 
 
 class ProgramManagementSwitchingWidgets(ProgramManagementClear):
+    """Класс для действия програмны при нажатиях на кнопки"""
 
     def click_item_tree(self):
         """Фунция получения и передачи сигнала нажатия на элементы дерева"""
@@ -78,6 +79,7 @@ class ProgramManagementSwitchingWidgets(ProgramManagementClear):
                 self.page_number = 0
             self.stackedWidget.setCurrentIndex(self.page_number)
         elif text == "Назад":
+            self.clear_data()
             if self.page_number == 0:
                 self.page_number = 18
             self.page_number -= 1

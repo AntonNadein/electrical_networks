@@ -1,10 +1,10 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
 
 from src.program_shell import SoftwareShell
 
 
 class ProgramManagement(SoftwareShell):
+    """Класс для управления программой и сохранения данных"""
     def __init__(self):
         super(SoftwareShell).__init__()
         self.page_number = 0
@@ -16,6 +16,11 @@ class ProgramManagement(SoftwareShell):
         self.data = {}
         self.original_values_combo_box = {}
         self.original_combo_box = {}
+        self.double_spin_1 = 0
+        self.double_spin_2 = 0
+        self.double_spin_3 = 0
+        self.spin_1 = 0
+        self.spin_2 = 0
 
     def save_data(self):
         if self.page_number == 1:
@@ -55,7 +60,6 @@ class ProgramManagement(SoftwareShell):
 
     def save_data_manager(self):
         """Сохранение данных начальника при нажатии на кнопку 'создать'"""
-        print(self.list_combo_box_equipment)
         while "" in self.list_combo_box_employee:
             index_none = self.list_combo_box_employee.index("")
             self.list_combo_box_employee.pop(index_none)
@@ -72,11 +76,11 @@ class ProgramManagement(SoftwareShell):
             'subordinates': self.list_combo_box_employee,  # подчиненные
             'equipment_list': self.list_combo_box_equipment  # оборудование
         }
-        print(self.data)
+        print(self.data)   # Здесь можно добавить сохранение данных в файл или базу данных
         self.clear_manager()
 
     def save_data_engineer(self):
-        """Сохранение данных инжкнера при нажатии на кнопку 'создать'"""
+        """Сохранение данных инженера при нажатии на кнопку 'создать'"""
         while "" in self.list_combo_box_employee:
             index_none = self.list_combo_box_employee.index("")
             self.list_combo_box_employee.pop(index_none)
@@ -116,7 +120,7 @@ class ProgramManagement(SoftwareShell):
         self.clear_master()
 
     def save_data_supervisor_control(self):
-        """Сохранение данных инжкнера при нажатии на кнопку 'создать'"""
+        """Сохранение данных начальника утээ при нажатии на кнопку 'создать'"""
         while "" in self.list_combo_box_employee:
             index_none = self.list_combo_box_employee.index("")
             self.list_combo_box_employee.pop(index_none)
@@ -137,7 +141,6 @@ class ProgramManagement(SoftwareShell):
 
     def save_data_mechanic(self):
         """Сохранение данных механика при нажатии на кнопку 'создать'"""
-        print(self.list_combo_box_equipment)
         while "" in self.list_combo_box_employee:
             index_none = self.list_combo_box_employee.index("")
             self.list_combo_box_employee.pop(index_none)
@@ -159,7 +162,6 @@ class ProgramManagement(SoftwareShell):
 
     def save_data_supervisor_dispatcher(self):
         """Сохранение данных начальника одг при нажатии на кнопку 'создать'"""
-        print(self.list_combo_box_equipment)
         while "" in self.list_combo_box_employee:
             index_none = self.list_combo_box_employee.index("")
             self.list_combo_box_employee.pop(index_none)
@@ -193,7 +195,6 @@ class ProgramManagement(SoftwareShell):
 
     def save_data_driver(self):
         """Сохранение данных водителя при нажатии на кнопку 'создать'"""
-        print(self.list_combo_box_equipment)
         while "" in self.list_combo_box_employee:
             index_none = self.list_combo_box_employee.index("")
             self.list_combo_box_employee.pop(index_none)
@@ -241,7 +242,7 @@ class ProgramManagement(SoftwareShell):
         self.clear_electrician_control()
 
     def save_data_dispatcher(self):
-        """Сохранение данных начальника одг при нажатии на кнопку 'создать'"""
+        """Сохранение данных диспетчера при нажатии на кнопку 'создать'"""
         while "" in self.list_combo_box_equipment:
             index_none = self.list_combo_box_equipment.index("")
             self.list_combo_box_equipment.pop(index_none)
@@ -270,44 +271,66 @@ class ProgramManagement(SoftwareShell):
         self.clear_transformer()
 
     def save_data_switch(self):
-        pass
+        """Сохранение данных выключателя при нажатии на кнопку 'создать'"""
+        data = {
+            'name': self.text_switch_name_2.toPlainText(),
+            'assignment': self.text_switch_assignment.toPlainText(),
+            'voltage_kilovolt': self.double_spin_1,
+            'voltage_switch': self.spin_1,
+            'weight_oil': self.double_spin_2,
+            'control': self.text_switch_name_3.toPlainText()
+        }
+        print(data)
+        self.clear_switch()
 
     def save_data_metering_device(self):
-        pass
+        """Сохранение данных измерительного прибора при нажатии на кнопку 'создать'"""
+        data = {
+            'name': self.text_o_name.toPlainText(),
+            'assignment': self.text_assignment.toPlainText(),
+            'voltage_kilovolt': self.double_spin_1,
+            'phases': self.spin_1
+        }
+        print(data)
+        self.clear_metering_device()
 
     def save_data_passenger_transport(self):
-        """Сохранение данных при нажатии на кнопку 'создать'"""
+        """Сохранение данных для пассажиского транспорта при нажатии на кнопку 'создать'"""
         data = {
                 'name': self.text_transport_name.toPlainText(),
                 'purpose': self.text_transport_purpose.toPlainText(),
-                'engine_power': self.pt,
-                'fuel_consumption': self.pt_1,
-                'passenger_capacity': self.pt_2
+                'engine_power': self.spin_1,
+                'fuel_consumption': self.double_spin_1,
+                'passenger_capacity': self.spin_2
         }
-        print(data)  # Здесь можно добавить сохранение данных в файл или базу данных
+        print(data)
+        self.clear_passenger_transport()
 
     def save_data_freight_transport(self):
-        pass
+        """Сохранение данных для грузового транспорта при нажатии на кнопку 'создать'"""
+        data = {
+            'name': self.text_transport_name.toPlainText(),
+            'purpose': self.text_transport_purpose.toPlainText(),
+            'engine_power': self.spin_1,
+            'fuel_consumption': self.double_spin_1,
+            'empty_weight': self.double_spin_2,
+            'cargo_weight': self.double_spin_3
+        }
+        print(data)
+        self.clear_passenger_transport()
 
     def save_data_special_transport(self):
-        pass
-
-
-    def check_box_driver(self):
-        """Фунция получения и передачи сигнала чек.бокса для класса водитель"""
-        self.checkBox_driver_a.stateChanged.connect(self.__show_state_a)
-        self.checkBox_driver_b.stateChanged.connect(self.__show_state_b)
-        self.checkBox_driver_c.stateChanged.connect(self.__show_state_c)
-        self.checkBox_driver_d.stateChanged.connect(self.__show_state_d)
-        self.checkBox_driver_e.stateChanged.connect(self.__show_state_e)
-
-    def check_box_mechanic(self):
-        """Фунция получения и передачи сигнала чек.бокса для класса механик"""
-        self.checkBox_driver_a_2.stateChanged.connect(self.__show_state_a)
-        self.checkBox_driver_b_2.stateChanged.connect(self.__show_state_b)
-        self.checkBox_driver_c_2.stateChanged.connect(self.__show_state_c)
-        self.checkBox_driver_d_2.stateChanged.connect(self.__show_state_d)
-        self.checkBox_driver_e_2.stateChanged.connect(self.__show_state_e)
+        """Сохранение данных для спецтранспорта при нажатии на кнопку 'создать'"""
+        data = {
+            'name': self.text_transport_name_3.toPlainText(),
+            'purpose': self.text_transport_purpose_3.toPlainText(),
+            'engine_power': self.spin_1,
+            'fuel_consumption': self.double_spin_1,
+            'engine_hours': self.double_spin_2,
+            'engine_hours_fuel_consumption': self.double_spin_3
+        }
+        print(data)
+        self.clear_special_transport()
 
     def check_box_manager(self):
         """Фунция получения и передачи сигнала чек.бокса для класса начальник"""
@@ -325,9 +348,24 @@ class ProgramManagement(SoftwareShell):
         self.checkBox_driver_d_4.stateChanged.connect(self.__show_state_d)
         self.checkBox_driver_e_4.stateChanged.connect(self.__show_state_e)
 
+    def check_box_driver(self):
+        """Фунция получения и передачи сигнала чек.бокса для класса водитель"""
+        self.checkBox_driver_a.stateChanged.connect(self.__show_state_a)
+        self.checkBox_driver_b.stateChanged.connect(self.__show_state_b)
+        self.checkBox_driver_c.stateChanged.connect(self.__show_state_c)
+        self.checkBox_driver_d.stateChanged.connect(self.__show_state_d)
+        self.checkBox_driver_e.stateChanged.connect(self.__show_state_e)
 
+    def check_box_mechanic(self):
+        """Фунция получения и передачи сигнала чек.бокса для класса механик"""
+        self.checkBox_driver_a_2.stateChanged.connect(self.__show_state_a)
+        self.checkBox_driver_b_2.stateChanged.connect(self.__show_state_b)
+        self.checkBox_driver_c_2.stateChanged.connect(self.__show_state_c)
+        self.checkBox_driver_d_2.stateChanged.connect(self.__show_state_d)
+        self.checkBox_driver_e_2.stateChanged.connect(self.__show_state_e)
 
     def __show_state_a(self, s):
+        """Функция выбора и очистки категории прав A"""
         if s == Qt.CheckState.Checked.value:
             self.list_box.append("A")
         else:
@@ -335,6 +373,7 @@ class ProgramManagement(SoftwareShell):
             self.list_box.pop(b)
 
     def __show_state_b(self, s):
+        """Функция выбора и очистки категории прав B"""
         if s == Qt.CheckState.Checked.value:
             self.list_box.append("B")
         else:
@@ -342,6 +381,7 @@ class ProgramManagement(SoftwareShell):
             self.list_box.pop(b)
 
     def __show_state_c(self, s):
+        """Функция выбора и очистки категории прав C"""
         if s == Qt.CheckState.Checked.value:
             self.list_box.append("C")
         else:
@@ -349,6 +389,7 @@ class ProgramManagement(SoftwareShell):
             self.list_box.pop(b)
 
     def __show_state_d(self, s):
+        """Функция выбора и очистки категории прав D"""
         if s == Qt.CheckState.Checked.value:
             self.list_box.append("D")
         else:
@@ -356,6 +397,7 @@ class ProgramManagement(SoftwareShell):
             self.list_box.pop(b)
 
     def __show_state_e(self, s):
+        """Функция выбора и очистки категории прав E"""
         if s == Qt.CheckState.Checked.value:
             self.list_box.append("E")
         else:
@@ -527,7 +569,7 @@ class ProgramManagement(SoftwareShell):
         self.comboBox_disp_15.currentTextChanged.connect(self.__text_changed10)
 
     def list_combo_box_driver_add(self): # вставка items из файла или БД
-        """Функция управления и вывода данных комбо бокса механика"""
+        """Функция управления и вывода данных комбо бокса водителя"""
         self.original_values_combo_box['combo_box_manager_employee'] = ["", "One", "Two", "Three"]
         self.original_values_combo_box['combo_box_manager_transport'] = ["", "One", "Two", "Three"]
 
@@ -542,7 +584,7 @@ class ProgramManagement(SoftwareShell):
         self.combo_driver_tech_3.currentTextChanged.connect(self.__text_changed_transport_3)
 
     def list_combo_box_inspector_add(self): # вставка items из файла или БД
-        """Функция управления и вывода данных комбо бокса начальника утээ"""
+        """Функция управления и вывода данных комбо бокса инспектора"""
         self.original_values_combo_box['combo_box_manager_equipment'] = ["", "One", "Two", "Three"]
 
         self.comboBox_ispector.addItems(self.original_values_combo_box['combo_box_manager_equipment'])
@@ -579,56 +621,91 @@ class ProgramManagement(SoftwareShell):
         self.comboBox_disp_5.currentTextChanged.connect(self.__text_changed10)
 
     def click_item_button_transformer(self):
-        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки"""
+        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для трансформатора"""
         self.doubleSpinBox_ot_1.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
         self.doubleSpinBox_ot_2.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
         self.spinBox_ot_3.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
+    def click_item_button_switch(self):
+        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для выключателя"""
+        self.doubleSpinBox_ov_1.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.doubleSpinBox_ov_2.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
+        self.spinBox_ov_2.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
-    def click_item_button(self):
-        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки"""
-        # Действие выбора спин бокса (сделать одельной функцией на каждый виджет)
-        self.spinBox_ptr_1.textChanged.connect((lambda num: setattr(self, 'pt', num)))
-        self.doubleSpinBox_ptr_2.textChanged.connect(lambda num: setattr(self, 'pt_1', num))
-        self.spinBox_ptr_3.textChanged.connect((lambda num: setattr(self, 'pt_2', num)))
+    def click_item_metering_device(self):
+        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для измерительного прибора"""
+        self.doubleSpinBox_oi_1.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.spinBox_oi_2.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
+    def click_item_button_passenger_transport(self):
+        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для пассажирского транспорта"""
+        self.spinBox_ptr_1.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+        self.doubleSpinBox_ptr_2.textChanged.connect(lambda num: setattr(self, 'double_spin_1', num))
+        self.spinBox_ptr_3.textChanged.connect((lambda num: setattr(self, 'spin_2', num)))
+
+    def click_item_button_freight_transport(self):
+        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для грузового транспорта"""
+        self.doubleSpinBox_ptf_2.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.doubleSpinBox_ptf_3.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
+        self.doubleSpinBox_ptf_4.textChanged.connect(lambda num: setattr(self, 'double_spin_3', num))
+        self.spinBox_ptf_1.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+
+    def click_item_button_special_transport(self):
+        """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для спец транспорта"""
+        self.doubleSpinBox_pts_2.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.doubleSpinBox_pts_3.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
+        self.doubleSpinBox_pts_4.textChanged.connect(lambda num: setattr(self, 'double_spin_3', num))
+        self.spinBox_pts_1.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
     def __text_changed1(self, s):
+        """Функция замены данных комбо бокса в списке работников элемент 1"""
         self.list_combo_box_employee[0] = s
 
     def __text_changed2(self, s):
+        """Функция замены данных комбо бокса в списке работников элемент 2"""
         self.list_combo_box_employee[1] = s
 
     def __text_changed3(self, s):
+        """Функция замены данных комбо бокса в списке работников элемент 3"""
         self.list_combo_box_employee[2] = s
 
     def __text_changed4(self, s):
+        """Функция замены данных комбо бокса в списке работников элемент 4"""
         self.list_combo_box_employee[3] = s
 
     def __text_changed5(self, s):
+        """Функция замены данных комбо бокса в списке работников элемент 5"""
         self.list_combo_box_employee[4] = s
 
     def __text_changed6(self, s):
+        """Функция замены данных комбо бокса в списке оборудования элемент 1"""
         self.list_combo_box_equipment[0] = s
 
     def __text_changed7(self, s):
+        """Функция замены данных комбо бокса в списке оборудования элемент 2"""
         self.list_combo_box_equipment[1] = s
 
     def __text_changed8(self, s):
+        """Функция замены данных комбо бокса в списке оборудования элемент 3"""
         self.list_combo_box_equipment[2] = s
 
     def __text_changed9(self, s):
+        """Функция замены данных комбо бокса в списке оборудования элемент 4"""
         self.list_combo_box_equipment[3] = s
 
     def __text_changed10(self, s):
+        """Функция замены данных комбо бокса в списке оборудования элемент 5"""
         self.list_combo_box_equipment[4] = s
 
     def __text_changed_transport_1(self, s):
+        """Функция замены данных комбо бокса в списке транспорта элемент 1"""
         self.list_combo_box_transport[0] = s
 
     def __text_changed_transport_2(self, s):
+        """Функция замены данных комбо бокса в списке транспорта элемент 2"""
         self.list_combo_box_transport[1] = s
 
     def __text_changed_transport_3(self, s):
+        """Функция замены данных комбо бокса в списке транспорта элемент 3"""
         self.list_combo_box_transport[2] = s
 
