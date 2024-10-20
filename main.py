@@ -10,6 +10,8 @@ if __name__ == "__main__":
 
     ui = ProgramManagementSwitchingWidgets()
     ui.setupUi(MainWindow)
+    ui.load_data_base_info()
+
     ui.click_item_tree()
     ui.click_item_button_next_back()
 

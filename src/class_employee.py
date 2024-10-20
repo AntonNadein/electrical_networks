@@ -19,7 +19,7 @@ class BaseEmployee(ABC):
 class Employee(BaseEmployee):
     """Базовый класс работника"""
 
-    total_employee = 0
+    id_employee = 0
     job_coefficient = 1
 
     name: str
@@ -32,18 +32,28 @@ class Employee(BaseEmployee):
         self.name = name
         self.surname = surname
         self.patronymic = patronymic
-        self.age = age
+        self.age = self._check_age_value(age)
         self.base_salary = base_salary if base_salary else 20000
-        Employee.total_employee += 1
+        Employee.id_employee += 1
 
     @classmethod
     def add_employee(cls, dicts):
         """Добавление нового работника из словаря"""
+        cls(**dicts)
         return cls(**dicts)
 
     def salary(self):
         """Рассчет зарплаты работника (зарплата * зарплатный коэффициент)"""
         return self.base_salary * self.job_coefficient
+
+    def _check_age_value(self, value: float | int) -> float | int:
+        """Функция проверки отрицательного значения"""
+        if value < 0:
+            raise ValueError("Возраст не может быть отрицательным")
+        elif value > 150:
+            raise ValueError("К сожалению люди столько не живут")
+        else:
+            return value
 
     def __repr__(self):
         """Вывод информации для разработчика"""
@@ -167,10 +177,11 @@ class Driver(Employee):
 #     print(str(emp_1))
 #     print(Employee.total_employee)
 #
-#     dict_3 = {'name': "Ivan", 'surname': "Sidorov", 'patronymic': "Petrovich", 'age': 23, 'base_salary': 25000}
-#     emp_3 = Employee.add_employee(dict_3)
-#     print(repr(emp_3))
-#     print(str(emp_3))
+    # dict_3 = {'name': "Ivan", 'surname': "Sidorov", 'patronymic': "Petrovich", 'age': 23, 'base_salary': 25000}
+    # emp_3 = Employee.add_employee(dict_3)
+    # print(emp_3.name)
+    # print(repr(emp_3))
+    # print(str(emp_3))
 #     print(Employee.total_employee)
 #     supervisor = Supervisor("Anry", "Gabi", "Ivanovich", 40, 40000, [emp_1])
 #     print(supervisor.subordinates)

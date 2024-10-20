@@ -1,4 +1,5 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QMessageBox
 
 
 class SoftwareShell(object):
@@ -86,6 +87,16 @@ class SoftwareShell(object):
         font.setPointSize(14)
         self.label_19.setFont(font)
         self.label_19.setObjectName("label_19")
+        self.label_info = QtWidgets.QLabel(parent=self.page_1)
+        self.label_info.setGeometry(QtCore.QRect(10, 20, 401, 441))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_info.setFont(font)
+        self.label_info.setText("")
+        self.label_info.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignLeading | QtCore.Qt.AlignmentFlag.AlignLeft | QtCore.Qt.AlignmentFlag.AlignTop)
+        self.label_info.setIndent(10)
+        self.label_info.setObjectName("label_info")
         self.stackedWidget.addWidget(self.page_1)
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
@@ -2802,6 +2813,14 @@ class SoftwareShell(object):
         self.label_56.setText(_translate("MainWindow", "Расход топлива на 100 Км"))
         self.label_57.setText(_translate("MainWindow", "Моточасы"))
         self.label_58.setText(_translate("MainWindow", "Расход топлива под нагрузкой"))
-        self.pushButton.setText(_translate("MainWindow", "Создать"))
-        self.pushButton_2.setText(_translate("MainWindow", "Очистить"))
-        self.pushButton_3.setText(_translate("MainWindow", "Сохранить"))
+        self.pushButton.setText(_translate("MainWindow", "Сохранить"))
+        self.pushButton_2.setText(_translate("MainWindow", ""))
+        self.pushButton_3.setText(_translate("MainWindow", "Очистить"))
+
+    def _new_windows_error(self, name_window: str, message: str) -> None:
+        """Всплывающее окно ошибки"""
+        message_window = QMessageBox()
+        message_window.setWindowTitle(name_window)
+        message_window.setText(message)
+        message_window.setIcon(QMessageBox.Icon.Warning)
+        message_window.exec()

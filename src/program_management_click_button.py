@@ -12,6 +12,9 @@ class ProgramManagementSwitchingWidgets(ProgramManagementClear):
     def on_item_clicked(self, item, column):
         """Реализация одинарного клика по объекту дерева"""
         print(f"Одиночный клик: {item.text(column)}")
+        text = "\nИнформация для вывода"
+        self.label_info.setText(item.text(column) + text)
+
 
     def on_item_double_clicked(self, item, column):
         """Реализация двойного клика по объекту дерева"""
@@ -90,5 +93,5 @@ class ProgramManagementSwitchingWidgets(ProgramManagementClear):
         """Фунция получения и передачи сигнала нажатия на кнопки"""
         self.pbn_1.clicked.connect(lambda: (self.click_button(self.pbn_1.text())))
         self.pbn_2.clicked.connect(lambda: (self.click_button(self.pbn_2.text())))
-        self.pushButton.clicked.connect(lambda: (self.save_data()))  # save
-        self.pushButton_2.clicked.connect(self.clear_data)  # clear
+        self.pushButton.clicked.connect(lambda: (self.save_data()))  # add
+        self.pushButton_3.clicked.connect(self.clear_data)  # clear

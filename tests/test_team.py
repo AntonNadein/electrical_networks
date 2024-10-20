@@ -23,7 +23,7 @@ def test_team_add_personal_error(test_team_data):
 def test_len_max_person_error(test_team_data):
     """Тест функции добавления на превышение лимита персонала"""
     with pytest.raises(TypeError):
-        Team("jgbc", "мастер", "vfsnth", ["test", "test1"], 1)
+        Team("jgbc", "мастер", "vfsnth", ["test2", "test1"], 1)
 
 
 def test_team_add_personal():

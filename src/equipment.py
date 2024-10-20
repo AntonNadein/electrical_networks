@@ -28,7 +28,7 @@ class ElectricalEquipment(BaseEquipment):
 
     @classmethod
     def add_equipment(cls, dicts):
-        """Добавление транспорта из словаря"""
+        """Добавление оборудования из словаря"""
         return cls(**dicts)
 
     def _check_negative_value(self, value: float | int) -> float | int:
@@ -38,7 +38,14 @@ class ElectricalEquipment(BaseEquipment):
         else:
             return value
 
+    def __repr__(self):
+        """Вывод информации для разработчика"""
+        return (
+            f"{self.__class__.__name__}({self.name}, {self.assignment}, {self.voltage_kilovolt},"
+        )
+
     def __str__(self):
+        """Вывод информации для пользователя"""
         return f"{self.name} - {self.voltage_kilovolt}кВ Предназначение: {self.assignment}"
 
 
@@ -63,13 +70,13 @@ class Transformer(OilFilledEquipment):
         name: str,
         assignment: str,
         voltage_kilovolt: float | int,
-        weight_oil: float,
-        voltage_transformation: float | int,
+        weight_oil: float | int,
+        voltage_transformations: float | int,
         power_kva: int,
     ) -> None:
         super().__init__(name, assignment, voltage_kilovolt, weight_oil)
-        self.voltage_transformations = self._check_negative_value(voltage_transformation)
-        self.power_kVA = self._check_negative_value(power_kva)
+        self.voltage_transformations = self._check_negative_value(voltage_transformations)
+        self.power_kva = self._check_negative_value(power_kva)
 
 
 class Switch(OilFilledEquipment):
@@ -83,7 +90,7 @@ class Switch(OilFilledEquipment):
         name: str,
         assignment: str,
         voltage_kilovolt: float | int,
-        weight_oil: float,
+        weight_oil: float | int,
         voltage_switch: int,
         control: str,
     ) -> None:
@@ -102,7 +109,10 @@ class MeteringDevice(ElectricalEquipment):
         self.phases = self._check_negative_value(phases)
 
 
-# if __name__ == "__main__":
-#     asdfad = ElectricalEquipment("nngbg", "sfdsdf", 20)
-#     asdfad1 = Transformer("nngbg", "sfdsdf", 50, 5000, 50, 160)
-#     print(asdfad.voltage_kilovolt)
+if __name__ == "__main__":
+    asdfad = ElectricalEquipment("nngbg", "sfdsdf", 20)
+    asdfad1 = Transformer("nngbg", "sfdsdf", 50, 5000, 50, 160)
+    print(asdfad.voltage_kilovolt)
+    d = {'name': 'testq', 'assignment':'test1', 'voltage_kilovolt': 50, 'weight_oil': 110, 'voltage_transformations': '50', 'power_kva': 160}
+    ob1 = Transformer.add_equipment(d)
+    print(ob1.voltage_transformations)

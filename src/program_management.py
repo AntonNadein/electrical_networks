@@ -1,6 +1,15 @@
 from PyQt6.QtCore import Qt
 
+from src.class_employee import Driver
+from src.equipment import Transformer, Switch, MeteringDevice
 from src.program_shell import SoftwareShell
+from src.save_to_file import SaveToFileDB
+from src.team_control import SupervisorControl, Inspector, ElectricianControl
+from src.team_dispatcher import SupervisorDispatcher, Dispatcher
+from src.team_driver import Mechanic
+from src.team_electricians import MasterElectric, Electrician
+from src.team_supervisor import SupervisorManager, Engineer
+from src.transport import PassengerTransport, FreightTransport, SpecialTransport
 
 
 class ProgramManagement(SoftwareShell):
@@ -21,6 +30,17 @@ class ProgramManagement(SoftwareShell):
         self.double_spin_3 = 0
         self.spin_1 = 0
         self.spin_2 = 0
+
+    def load_data_base_info(self):
+        """Функция загрузки базы данных и вывода номера вкакансии"""
+        self.save = SaveToFileDB()
+        self.num = self.save.load_base()
+
+    def _naming_key_employee(self, name_vacancy: str):
+        """Функция создания ключа по имени вакансии и порядковому номеру"""
+        self.name_vacancy = name_vacancy + str(self.num)
+        self.num += 1
+        self.save.save_to_file(self.name_vacancy, self.employee)
 
     def save_data(self):
         if self.page_number == 1:
@@ -59,278 +79,346 @@ class ProgramManagement(SoftwareShell):
             self.save_data_special_transport()
 
     def save_data_manager(self):
-        """Сохранение данных начальника при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_employee:
-            index_none = self.list_combo_box_employee.index("")
-            self.list_combo_box_employee.pop(index_none)
-        while "" in self.list_combo_box_equipment:
-            index_none = self.list_combo_box_equipment.index("")
-            self.list_combo_box_equipment.pop(index_none)
-        self.data = {
-            'name': self.text_manager_ln.toPlainText(),
-            'surname': self.text_manager_fn.toPlainText(),
-            'patronymic': self.text_manager_pn.toPlainText(),
-            'age': self.text_manager_age.toPlainText(),
-            'base_salary': self.text_manager_salary.toPlainText(),
-            'category_driver_license': self.list_box,
-            'subordinates': self.list_combo_box_employee,  # подчиненные
-            'equipment_list': self.list_combo_box_equipment  # оборудование
-        }
-        print(self.data)   # Здесь можно добавить сохранение данных в файл или базу данных
-        self.clear_manager()
+        """Сохранение данных начальника при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_employee:
+                index_none = self.list_combo_box_employee.index("")
+                self.list_combo_box_employee.pop(index_none)
+            while "" in self.list_combo_box_equipment:
+                index_none = self.list_combo_box_equipment.index("")
+                self.list_combo_box_equipment.pop(index_none)
+            self.data = {
+                'name': self.text_manager_fn.toPlainText(),
+                'surname': self.text_manager_ln.toPlainText(),
+                'patronymic': self.text_manager_pn.toPlainText(),
+                'age': int(self.text_manager_age.toPlainText()),
+                'base_salary': int(self.text_manager_salary.toPlainText()),
+                'category_driver_license': self.list_box,
+                'subordinates': self.list_combo_box_employee,  # подчиненные
+                'equipment_list': self.list_combo_box_equipment  # оборудование
+            }
+            self.employee = SupervisorManager.add_employee(self.data)
+            self._naming_key_employee("supervisor_")
+            self.clear_manager()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_engineer(self):
-        """Сохранение данных инженера при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_employee:
-            index_none = self.list_combo_box_employee.index("")
-            self.list_combo_box_employee.pop(index_none)
-        while "" in self.list_combo_box_equipment:
-            index_none = self.list_combo_box_equipment.index("")
-            self.list_combo_box_equipment.pop(index_none)
-        self.data = {
-            'name': self.text_engineer_ln.toPlainText(),
-            'surname': self.text_engineer_fn.toPlainText(),
-            'patronymic': self.text_engineer_pn.toPlainText(),
-            'age': self.text_engineer_age.toPlainText(),
-            'base_salary': self.text_engineer_salary.toPlainText(),
-            'category_driver_license': self.list_box,
-            'subordinates': self.list_combo_box_employee,  # подчиненные
-            'equipment_list': self.list_combo_box_equipment  # оборудование
-        }
-        print(self.data)
-        self.clear_engineer()
+        """Сохранение данных инженера при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_employee:
+                index_none = self.list_combo_box_employee.index("")
+                self.list_combo_box_employee.pop(index_none)
+            while "" in self.list_combo_box_equipment:
+                index_none = self.list_combo_box_equipment.index("")
+                self.list_combo_box_equipment.pop(index_none)
+            self.data = {
+                'name': self.text_engineer_fn.toPlainText(),
+                'surname': self.text_engineer_ln.toPlainText(),
+                'patronymic': self.text_engineer_pn.toPlainText(),
+                'age': int(self.text_engineer_age.toPlainText()),
+                'base_salary': int(self.text_engineer_salary.toPlainText()),
+                'category_driver_license': self.list_box,
+                'subordinates': self.list_combo_box_employee,  # подчиненные
+                'equipment_list': self.list_combo_box_equipment  # оборудование
+            }
+            self.employee = Engineer.add_employee(self.data)
+            self._naming_key_employee("engineer_")
+            self.clear_engineer()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_master(self):
-        """Сохранение данных мастера при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_employee:
-            index_none = self.list_combo_box_employee.index("")
-            self.list_combo_box_employee.pop(index_none)
-        while "" in self.list_combo_box_equipment:
-            index_none = self.list_combo_box_equipment.index("")
-            self.list_combo_box_equipment.pop(index_none)
-        self.data = {
-            'name': self.text_master_ln.toPlainText(),
-            'surname': self.text_master_fn.toPlainText(),
-            'patronymic': self.text_master_pn.toPlainText(),
-            'age': self.text_master_age.toPlainText(),
-            'base_salary': self.text_master_salary.toPlainText(),
-            'subordinates': self.list_combo_box_employee  # подчиненные
-        }
-        print(self.data)
-        self.clear_master()
+        """Сохранение данных мастера при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_employee:
+                index_none = self.list_combo_box_employee.index("")
+                self.list_combo_box_employee.pop(index_none)
+            while "" in self.list_combo_box_equipment:
+                index_none = self.list_combo_box_equipment.index("")
+                self.list_combo_box_equipment.pop(index_none)
+            self.data = {
+                'name': self.text_master_fn.toPlainText(),
+                'surname': self.text_master_ln.toPlainText(),
+                'patronymic': self.text_master_pn.toPlainText(),
+                'age': int(self.text_master_age.toPlainText()),
+                'base_salary': int(self.text_master_salary.toPlainText()),
+                'subordinates': self.list_combo_box_employee  # подчиненные
+            }
+            self.employee = MasterElectric.add_employee(self.data)
+            self._naming_key_employee("master_")
+            self.clear_master()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_supervisor_control(self):
-        """Сохранение данных начальника утээ при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_employee:
-            index_none = self.list_combo_box_employee.index("")
-            self.list_combo_box_employee.pop(index_none)
-        while "" in self.list_combo_box_equipment:
-            index_none = self.list_combo_box_equipment.index("")
-            self.list_combo_box_equipment.pop(index_none)
-        self.data = {
-            'name': self.text_n_utaa_ln.toPlainText(),
-            'surname': self.text_n_utaa_fn.toPlainText(),
-            'patronymic': self.text_n_utaa_pn.toPlainText(),
-            'age': self.text_n_utaa_age.toPlainText(),
-            'base_salary': self.text_n_utaa_salary.toPlainText(),
-            'subordinates': self.list_combo_box_employee,  # подчиненные
-            'equipment_list': self.list_combo_box_equipment  # оборудование
-        }
-        print(self.data)
-        self.clear_supervisor_control()
+        """Сохранение данных начальника утээ при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_employee:
+                index_none = self.list_combo_box_employee.index("")
+                self.list_combo_box_employee.pop(index_none)
+            while "" in self.list_combo_box_equipment:
+                index_none = self.list_combo_box_equipment.index("")
+                self.list_combo_box_equipment.pop(index_none)
+            self.data = {
+                'name': self.text_n_utaa_fn.toPlainText(),
+                'surname': self.text_n_utaa_ln.toPlainText(),
+                'patronymic': self.text_n_utaa_pn.toPlainText(),
+                'age': int(self.text_n_utaa_age.toPlainText()),
+                'base_salary': int(self.text_n_utaa_salary.toPlainText()),
+                'subordinates': self.list_combo_box_employee,  # подчиненные
+                'equipment_list': self.list_combo_box_equipment  # оборудование
+            }
+            self.employee = SupervisorControl.add_employee(self.data)
+            self._naming_key_employee("supervisor_control_")
+            self.clear_supervisor_control()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_mechanic(self):
-        """Сохранение данных механика при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_employee:
-            index_none = self.list_combo_box_employee.index("")
-            self.list_combo_box_employee.pop(index_none)
-        while "" in self.list_combo_box_transport:
-            index_none = self.list_combo_box_transport.index("")
-            self.list_combo_box_transport.pop(index_none)
-        self.data = {
-            'name': self.text_mechanic_ln.toPlainText(),
-            'surname': self.text_mechanic_fn.toPlainText(),
-            'patronymic': self.text_mechanic_pn.toPlainText(),
-            'age': self.text_mechanic_age.toPlainText(),
-            'base_salary': self.text_mechanic_salary.toPlainText(),
-            'category_driver_license': self.list_box,
-            'subordinates': self.list_combo_box_employee,  # подчиненные
-            'transport_list': self.list_combo_box_transport  # транспорт
-        }
-        print(self.data)
-        self.clear_mechanic()
+        """Сохранение данных механика при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_employee:
+                index_none = self.list_combo_box_employee.index("")
+                self.list_combo_box_employee.pop(index_none)
+            while "" in self.list_combo_box_transport:
+                index_none = self.list_combo_box_transport.index("")
+                self.list_combo_box_transport.pop(index_none)
+            self.data = {
+                'name': self.text_mechanic_fn.toPlainText(),
+                'surname': self.text_mechanic_ln.toPlainText(),
+                'patronymic': self.text_mechanic_pn.toPlainText(),
+                'age': int(self.text_mechanic_age.toPlainText()),
+                'base_salary': int(self.text_mechanic_salary.toPlainText()),
+                'category_driver_license': self.list_box,
+                'subordinates': self.list_combo_box_employee,  # подчиненные
+                'transport_list': self.list_combo_box_transport  # транспорт
+            }
+            self.employee = Mechanic.add_employee(self.data)
+            self._naming_key_employee("mechanic_")
+            self.clear_mechanic()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_supervisor_dispatcher(self):
-        """Сохранение данных начальника одг при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_employee:
-            index_none = self.list_combo_box_employee.index("")
-            self.list_combo_box_employee.pop(index_none)
-        while "" in self.list_combo_box_equipment:
-            index_none = self.list_combo_box_equipment.index("")
-            self.list_combo_box_equipment.pop(index_none)
-        self.data = {
-            'name': self.text_disp_ln_2.toPlainText(),
-            'surname': self.text_disp_fn_2.toPlainText(),
-            'patronymic': self.text_disp_pn_2.toPlainText(),
-            'age': self.text_disp_age_2.toPlainText(),
-            'base_salary': self.text_disp_salary_2.toPlainText(),
-            'subordinates': self.list_combo_box_employee,  # подчиненные
-            'equipment_list': self.list_combo_box_equipment  # оборудование
-        }
-        print(self.data)
-        self.clear_supervisor_dispatcher()
+        """Сохранение данных начальника одг при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_employee:
+                index_none = self.list_combo_box_employee.index("")
+                self.list_combo_box_employee.pop(index_none)
+            while "" in self.list_combo_box_equipment:
+                index_none = self.list_combo_box_equipment.index("")
+                self.list_combo_box_equipment.pop(index_none)
+            self.data = {
+                'name': self.text_disp_fn_2.toPlainText(),
+                'surname': self.text_disp_ln_2.toPlainText(),
+                'patronymic': self.text_disp_pn_2.toPlainText(),
+                'age': int(self.text_disp_age_2.toPlainText()),
+                'base_salary': int(self.text_disp_salary_2.toPlainText()),
+                'subordinates': self.list_combo_box_employee,  # подчиненные
+                'equipment_list': self.list_combo_box_equipment  # оборудование
+            }
+            self.employee = SupervisorDispatcher.add_employee(self.data)
+            self._naming_key_employee("supervisor_dispatcher_")
+            self.clear_supervisor_dispatcher()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_electrician(self):
-        """Сохранение данных электромонтера при нажатии на кнопку 'создать'"""
-        self.data = {
-            'name': self.text_el_monter_ln.toPlainText(),
-            'surname': self.text_el_monter_fn.toPlainText(),
-            'patronymic': self.text_el_monter_pn.toPlainText(),
-            'age': self.text_el_monter_age.toPlainText(),
-            'base_salary': self.text_el_monter_salary.toPlainText(),
-        }
-        print(self.data)
-        self.clear_electrician()
+        """Сохранение данных электромонтера при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
+                'name': self.text_el_monter_fn.toPlainText(),
+                'surname': self.text_el_monter_ln.toPlainText(),
+                'patronymic': self.text_el_monter_pn.toPlainText(),
+                'age': int(self.text_el_monter_age.toPlainText()),
+                'base_salary': int(self.text_el_monter_salary.toPlainText()),
+            }
+            self.employee = Electrician.add_employee(self.data)
+            self._naming_key_employee("electrician_")
+            self.clear_electrician()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
 
     def save_data_driver(self):
-        """Сохранение данных водителя при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_employee:
-            index_none = self.list_combo_box_employee.index("")
-            self.list_combo_box_employee.pop(index_none)
-        while "" in self.list_combo_box_transport:
-            index_none = self.list_combo_box_transport.index("")
-            self.list_combo_box_transport.pop(index_none)
-        self.data = {
-            'name': self.text_driver_ln.toPlainText(),
-            'surname': self.text_driver_fn.toPlainText(),
-            'patronymic': self.text_driver_pn.toPlainText(),
-            'age': self.text_driver_age.toPlainText(),
-            'base_salary': self.text_driver_salary.toPlainText(),
-            'category_driver_license': self.list_box,
-            'transport_list': self.list_combo_box_transport  # транспорт
-        }
-        print(self.data)
-        self.clear_driver()
+        """Сохранение данных водителя при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_employee:
+                index_none = self.list_combo_box_employee.index("")
+                self.list_combo_box_employee.pop(index_none)
+            while "" in self.list_combo_box_transport:
+                index_none = self.list_combo_box_transport.index("")
+                self.list_combo_box_transport.pop(index_none)
+            self.data = {
+                'name': self.text_driver_fn.toPlainText(),
+                'surname': self.text_driver_ln.toPlainText(),
+                'patronymic': self.text_driver_pn.toPlainText(),
+                'age': int(self.text_driver_age.toPlainText()),
+                'base_salary': int(self.text_driver_salary.toPlainText()),
+                'category_driver_license': self.list_box,
+                'transport_list': self.list_combo_box_transport  # транспорт
+            }
+            self.employee = Driver.add_employee(self.data)
+            self._naming_key_employee("driver_")
+            self.clear_driver()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_inspector(self):
-        """Сохранение данных инспектора при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_equipment:
-            index_none = self.list_combo_box_equipment.index("")
-            self.list_combo_box_equipment.pop(index_none)
-        self.data = {
-            'name': self.text_ispector_ln.toPlainText(),
-            'surname': self.text_ispector_fn.toPlainText(),
-            'patronymic': self.text_ispector_pn.toPlainText(),
-            'age': self.text_ispector_age.toPlainText(),
-            'base_salary': self.text_ispector_salary.toPlainText(),
-            'equipment_list': self.list_combo_box_equipment  # оборудование
-        }
-        print(self.data)
-        self.clear_inspector()
+        """Сохранение данных инспектора при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_equipment:
+                index_none = self.list_combo_box_equipment.index("")
+                self.list_combo_box_equipment.pop(index_none)
+            self.data = {
+                'name': self.text_ispector_fn.toPlainText(),
+                'surname': self.text_ispector_ln.toPlainText(),
+                'patronymic': self.text_ispector_pn.toPlainText(),
+                'age': int(self.text_ispector_age.toPlainText()),
+                'base_salary': int(self.text_ispector_salary.toPlainText()),
+                'equipment_list': self.list_combo_box_equipment  # оборудование
+            }
+            self.employee = Inspector.add_employee(self.data)
+            self._naming_key_employee("inspector_")
+            self.clear_inspector()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_electrician_control(self):
-        """Сохранение данных электромонтера утээ при нажатии на кнопку 'создать'"""
-        self.data = {
-            'name': self.text_el_monter_ut_ln_3.toPlainText(),
-            'surname': self.text_el_monter_ut_fn_3.toPlainText(),
-            'patronymic': self.text_el_monter_ut_pn_3.toPlainText(),
-            'age': self.text_el_monter_ut_age_3.toPlainText(),
-            'base_salary': self.text_el_monter_ut_salary_3.toPlainText(),
-        }
-        print(self.data)
-        self.clear_electrician_control()
+        """Сохранение данных электромонтера утээ при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
+                'name': self.text_el_monter_ut_fn_3.toPlainText(),
+                'surname': self.text_el_monter_ut_ln_3.toPlainText(),
+                'patronymic': self.text_el_monter_ut_pn_3.toPlainText(),
+                'age': int(self.text_el_monter_ut_age_3.toPlainText()),
+                'base_salary': int(self.text_el_monter_ut_salary_3.toPlainText()),
+            }
+            self.employee = ElectricianControl.add_employee(self.data)
+            self._naming_key_employee("electrician_control_")
+            self.clear_electrician_control()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_dispatcher(self):
-        """Сохранение данных диспетчера при нажатии на кнопку 'создать'"""
-        while "" in self.list_combo_box_equipment:
-            index_none = self.list_combo_box_equipment.index("")
-            self.list_combo_box_equipment.pop(index_none)
-        self.data = {
-            'name': self.text_disp_ln.toPlainText(),
-            'surname': self.text_disp_fn.toPlainText(),
-            'patronymic': self.text_disp_pn.toPlainText(),
-            'age': self.text_disp_age.toPlainText(),
-            'base_salary': self.text_disp_salary.toPlainText(),
-            'equipment_list': self.list_combo_box_equipment  # оборудование
-        }
-        print(self.data)
-        self.clear_dispatcher()
+        """Сохранение данных диспетчера при нажатии на кнопку 'сохранить'"""
+        try:
+            while "" in self.list_combo_box_equipment:
+                index_none = self.list_combo_box_equipment.index("")
+                self.list_combo_box_equipment.pop(index_none)
+            self.data = {
+                'name': self.text_disp_fn.toPlainText(),
+                'surname': self.text_disp_ln.toPlainText(),
+                'patronymic': self.text_disp_pn.toPlainText(),
+                'age': int(self.text_disp_age.toPlainText()),
+                'base_salary': int(self.text_disp_salary.toPlainText()),
+                'equipment_list': self.list_combo_box_equipment  # оборудование
+            }
+            self.employee = Dispatcher.add_employee(self.data)
+            self._naming_key_employee("dispatcher_")
+            self.clear_dispatcher()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_transformer(self):
-        """Сохранение данных трансформатора при нажатии на кнопку 'создать'"""
-        data = {
-            'name': self.text_trans_name.toPlainText(),
-            'assignment': self.text_trans_assignment.toPlainText(),
-            'voltage_kilovolt': self.double_spin_1,
-            'weight_oil': self.double_spin_2,
-            'voltage_transformation': self.text_voltage_transform.toPlainText(),
-            'power_kva': self.spin_1
-        }
-        print(data)
-        self.clear_transformer()
+        """Сохранение данных трансформатора при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
+                'name': self.text_trans_name.toPlainText(),
+                'assignment': self.text_trans_assignment.toPlainText(),
+                'voltage_kilovolt': self.double_spin_1,
+                'weight_oil': self.double_spin_2,
+                'voltage_transformations': int(self.text_voltage_transform.toPlainText()),
+                'power_kva': self.spin_1
+            }
+            self.employee = Transformer.add_equipment(self.data)
+            self._naming_key_employee("equipment_transformer_")
+            self.clear_transformer()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_switch(self):
-        """Сохранение данных выключателя при нажатии на кнопку 'создать'"""
-        data = {
-            'name': self.text_switch_name_2.toPlainText(),
-            'assignment': self.text_switch_assignment.toPlainText(),
-            'voltage_kilovolt': self.double_spin_1,
-            'voltage_switch': self.spin_1,
-            'weight_oil': self.double_spin_2,
-            'control': self.text_switch_name_3.toPlainText()
-        }
-        print(data)
-        self.clear_switch()
+        """Сохранение данных выключателя при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
+                'name': self.text_switch_name_2.toPlainText(),
+                'assignment': self.text_switch_assignment.toPlainText(),
+                'voltage_kilovolt': self.double_spin_1,
+                'voltage_switch': self.spin_1,
+                'weight_oil': self.double_spin_2,
+                'control': self.text_switch_name_3.toPlainText()
+            }
+            self.employee = Switch.add_equipment(self.data)
+            self._naming_key_employee("equipment_switch_")
+            self.clear_switch()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_metering_device(self):
-        """Сохранение данных измерительного прибора при нажатии на кнопку 'создать'"""
-        data = {
-            'name': self.text_o_name.toPlainText(),
-            'assignment': self.text_assignment.toPlainText(),
-            'voltage_kilovolt': self.double_spin_1,
-            'phases': self.spin_1
-        }
-        print(data)
-        self.clear_metering_device()
+        """Сохранение данных измерительного прибора при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
+                'name': self.text_o_name.toPlainText(),
+                'assignment': self.text_assignment.toPlainText(),
+                'voltage_kilovolt': self.double_spin_1,
+                'phases': self.spin_1
+            }
+            self.employee = MeteringDevice.add_equipment(self.data)
+            self._naming_key_employee("equipment_metering_device_")
+            self.clear_metering_device()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_passenger_transport(self):
-        """Сохранение данных для пассажиского транспорта при нажатии на кнопку 'создать'"""
-        data = {
+        """Сохранение данных для пассажиского транспорта при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
+                    'name': self.text_transport_name.toPlainText(),
+                    'purpose': self.text_transport_purpose.toPlainText(),
+                    'engine_power': self.spin_1,
+                    'fuel_consumption': self.double_spin_1,
+                    'passenger_capacity': self.spin_2
+            }
+            self.employee = PassengerTransport.add_transport(self.data)
+            self._naming_key_employee("passenger_transport_")
+            self.clear_passenger_transport()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
+
+    def save_data_freight_transport(self):
+        """Сохранение данных для грузового транспорта при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
                 'name': self.text_transport_name.toPlainText(),
                 'purpose': self.text_transport_purpose.toPlainText(),
                 'engine_power': self.spin_1,
                 'fuel_consumption': self.double_spin_1,
-                'passenger_capacity': self.spin_2
-        }
-        print(data)
-        self.clear_passenger_transport()
-
-    def save_data_freight_transport(self):
-        """Сохранение данных для грузового транспорта при нажатии на кнопку 'создать'"""
-        data = {
-            'name': self.text_transport_name.toPlainText(),
-            'purpose': self.text_transport_purpose.toPlainText(),
-            'engine_power': self.spin_1,
-            'fuel_consumption': self.double_spin_1,
-            'empty_weight': self.double_spin_2,
-            'cargo_weight': self.double_spin_3
-        }
-        print(data)
-        self.clear_passenger_transport()
+                'empty_weight': self.double_spin_2,
+                'cargo_weight': self.double_spin_3
+            }
+            self.employee = FreightTransport.add_transport(self.data)
+            self._naming_key_employee("freight_transport_")
+            self.clear_passenger_transport()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def save_data_special_transport(self):
-        """Сохранение данных для спецтранспорта при нажатии на кнопку 'создать'"""
-        data = {
-            'name': self.text_transport_name_3.toPlainText(),
-            'purpose': self.text_transport_purpose_3.toPlainText(),
-            'engine_power': self.spin_1,
-            'fuel_consumption': self.double_spin_1,
-            'engine_hours': self.double_spin_2,
-            'engine_hours_fuel_consumption': self.double_spin_3
-        }
-        print(data)
-        self.clear_special_transport()
+        """Сохранение данных для спецтранспорта при нажатии на кнопку 'сохранить'"""
+        try:
+            self.data = {
+                'name': self.text_transport_name_3.toPlainText(),
+                'purpose': self.text_transport_purpose_3.toPlainText(),
+                'engine_power': int(self.spin_1),
+                'fuel_consumption': self.double_spin_1,
+                'engine_hours': self.double_spin_2,
+                'engine_hours_fuel_consumption': self.double_spin_3
+            }
+            self.employee = SpecialTransport.add_transport(self.data)
+            self._naming_key_employee("special_transport_")
+            self.clear_special_transport()
+        except ValueError:
+            self._new_windows_error("Ошибка данных", "Введены не корретные данные")
 
     def check_box_manager(self):
         """Фунция получения и передачи сигнала чек.бокса для класса начальник"""
@@ -622,40 +710,40 @@ class ProgramManagement(SoftwareShell):
 
     def click_item_button_transformer(self):
         """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для трансформатора"""
-        self.doubleSpinBox_ot_1.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
-        self.doubleSpinBox_ot_2.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
-        self.spinBox_ot_3.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+        self.doubleSpinBox_ot_1.valueChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.doubleSpinBox_ot_2.valueChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
+        self.spinBox_ot_3.valueChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
     def click_item_button_switch(self):
         """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для выключателя"""
-        self.doubleSpinBox_ov_1.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
-        self.doubleSpinBox_ov_2.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
-        self.spinBox_ov_2.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+        self.doubleSpinBox_ov_1.valueChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.doubleSpinBox_ov_2.valueChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
+        self.spinBox_ov_2.valueChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
     def click_item_metering_device(self):
         """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для измерительного прибора"""
-        self.doubleSpinBox_oi_1.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
-        self.spinBox_oi_2.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+        self.doubleSpinBox_oi_1.valueChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.spinBox_oi_2.valueChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
     def click_item_button_passenger_transport(self):
         """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для пассажирского транспорта"""
-        self.spinBox_ptr_1.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
-        self.doubleSpinBox_ptr_2.textChanged.connect(lambda num: setattr(self, 'double_spin_1', num))
-        self.spinBox_ptr_3.textChanged.connect((lambda num: setattr(self, 'spin_2', num)))
+        self.spinBox_ptr_1.valueChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+        self.doubleSpinBox_ptr_2.valueChanged.connect(lambda num: setattr(self, 'double_spin_1', num))
+        self.spinBox_ptr_3.valueChanged.connect((lambda num: setattr(self, 'spin_2', num)))
 
     def click_item_button_freight_transport(self):
         """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для грузового транспорта"""
-        self.doubleSpinBox_ptf_2.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
-        self.doubleSpinBox_ptf_3.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
-        self.doubleSpinBox_ptf_4.textChanged.connect(lambda num: setattr(self, 'double_spin_3', num))
-        self.spinBox_ptf_1.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+        self.doubleSpinBox_ptf_2.valueChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.doubleSpinBox_ptf_3.valueChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
+        self.doubleSpinBox_ptf_4.valueChanged.connect(lambda num: setattr(self, 'double_spin_3', num))
+        self.spinBox_ptf_1.valueChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
     def click_item_button_special_transport(self):
         """Фунция выбора спин бокса и передачи сигнала нажатия на кнопки для спец транспорта"""
-        self.doubleSpinBox_pts_2.textChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
-        self.doubleSpinBox_pts_3.textChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
-        self.doubleSpinBox_pts_4.textChanged.connect(lambda num: setattr(self, 'double_spin_3', num))
-        self.spinBox_pts_1.textChanged.connect((lambda num: setattr(self, 'spin_1', num)))
+        self.doubleSpinBox_pts_2.valueChanged.connect((lambda num: setattr(self, 'double_spin_1', num)))
+        self.doubleSpinBox_pts_3.valueChanged.connect(lambda num: setattr(self, 'double_spin_2', num))
+        self.doubleSpinBox_pts_4.valueChanged.connect(lambda num: setattr(self, 'double_spin_3', num))
+        self.spinBox_pts_1.valueChanged.connect((lambda num: setattr(self, 'spin_1', num)))
 
     def __text_changed1(self, s):
         """Функция замены данных комбо бокса в списке работников элемент 1"""
